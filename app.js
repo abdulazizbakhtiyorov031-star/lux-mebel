@@ -174,35 +174,41 @@
     updateLikesCount();
     return i === -1;
   }
-  var regPending = null;
-  function regOpen(after) {
-    regPending = after;
-    $("regErr").hidden = true;
-    $("regModal").hidden = false;
-    document.body.style.overflow = "hidden";
-    $("regName").focus();
-  }
-  function regClose() { $("regModal").hidden = true; document.body.style.overflow = ""; regPending = null; }
-  $("regClose").onclick = regClose;
-  $("regModal").onclick = function (e) { if (e.target.id === "regModal") regClose(); };
-  $("regForm").onsubmit = function (e) {
-    e.preventDefault();
-    var name = $("regName").value.trim(), phone = $("regPhone").value.trim();
-    if (!name || !phone) { $("regErr").hidden = false; return; }
-    sessionUser = { name: name, phone: phone };
-    safeSet(LS_USER, JSON.stringify(sessionUser));
-    var cb = regPending;
-    regClose();
-    if (cb) cb();
-  };
   function likeClick(id, btn) {
-    var doToggle = function () {
-      var on = toggleLike(id);
-      btn.classList.toggle("on", on);
-      btn.innerHTML = on ? "♥" : "♡";
-      if (flag === "liked") render(true);
+    var on = toggleLike(id);
+    btn.classList.toggle("on", on);
+    btn.innerHTML = on ? "♥" : "♡";
+    if (flag === "liked") render(true);
+    renderArizaLikes();
+  }
+
+  // --- Ariza qoldirish (pastki forma) ---
+  var ARIZA_URL = "https://api.luxmebel.uz/ariza";
+  function renderArizaLikes() {
+    var box = $("arizaLikesList");
+    if (!box) return;
+    box.innerHTML = "";
+    var likedProducts = sessionLikes.map(function (id) { return all.filter(function (p) { return p.id === id; })[0]; }).filter(Boolean);
+    if (!likedProducts.length) { box.innerHTML = '<div class="t" style="color:var(--muted)">Hali hech narsa yoqtirilmagan</div>'; return; }
+    likedProducts.forEach(function (p) { box.appendChild(el("div", "ariza-item t", p.name)); });
+  }
+  if ($("arizaSubmit")) {
+    $("arizaSubmit").onclick = function () {
+      var name = $("arizaName").value.trim(), phone = $("arizaPhone").value.trim();
+      var msg = $("arizaMsg");
+      if (!name || !phone) { msg.hidden = false; msg.textContent = "Ism va raqamni to'liq kiriting"; msg.style.color = "var(--red)"; return; }
+      var likedProducts = sessionLikes.map(function (id) { return all.filter(function (p) { return p.id === id; })[0]; }).filter(Boolean);
+      var payload = { name: name, phone: phone, likes: likedProducts.map(function (p) { return { id: p.id, name: p.name }; }) };
+      $("arizaSubmit").disabled = true;
+      fetch(ARIZA_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
+        .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+        .then(function () {
+          msg.hidden = false; msg.style.color = "var(--gold)"; msg.textContent = "Qabul qilindi! Tez orada bog'lanamiz.";
+          $("arizaName").value = ""; $("arizaPhone").value = "";
+        })
+        .catch(function () { msg.hidden = false; msg.style.color = "var(--red)"; msg.textContent = "Xatolik yuz berdi, qayta urinib ko'ring yoki Telegram/qo'ng'iroq orqali bog'laning."; })
+        .finally(function () { $("arizaSubmit").disabled = false; });
     };
-    if (!getUser()) regOpen(doToggle); else doToggle();
   }
 
   function filtered() {
@@ -285,5 +291,5 @@
   updateLikesCount();
   $("q").oninput = function (e) { query = e.target.value; render(true); };
   $("more").onclick = function () { render(false); };
-  load().then(function (d) { all = d; chips(); render(true); renderFeatured(); }).catch(function () { $("grid").innerHTML = '<div class="empty">Katalogni yuklab bo\'lmadi</div>'; });
+  load().then(function (d) { all = d; chips(); render(true); renderFeatured(); renderArizaLikes(); }).catch(function () { $("grid").innerHTML = '<div class="empty">Katalogni yuklab bo\'lmadi</div>'; });
 })();

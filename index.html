@@ -62,6 +62,22 @@
     <div class="quote"><div class="no t" style="margin-bottom:26px">Mijozlar</div>
       <p class="k" id="qText"></p><div class="who t" id="qWho"></div><div class="qnav" id="qNav"></div></div>
   </section>
+
+  <section class="sec" id="ariza">
+    <div class="head"><div><div class="no t">Bog'lanish</div><h2 class="k">Ariza qoldiring</h2></div></div>
+    <div class="ariza-box">
+      <div class="ariza-form">
+        <input type="text" id="arizaName" placeholder="Ismingiz">
+        <input type="tel" id="arizaPhone" placeholder="+998 90 123 45 67">
+        <button type="button" class="btn gold t" id="arizaSubmit" style="margin-top:16px">Yuborish</button>
+        <div class="ariza-msg t" id="arizaMsg" hidden></div>
+      </div>
+      <div class="ariza-likes">
+        <div class="t" style="margin-bottom:12px;color:var(--muted)">Yoqqan mahsulotlaringiz</div>
+        <div id="arizaLikesList"></div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer class="dark" id="aloqa"><div class="wrap"><div class="grid2">
@@ -79,20 +95,6 @@
   <div class="lb-count t" id="lbCount"></div>
 </div>
 
-<div class="modal" id="regModal" hidden>
-  <div class="modal-box">
-    <button type="button" class="modal-close" id="regClose" aria-label="Yopish">✕</button>
-    <div class="no t" style="margin-bottom:14px">Saqlash uchun</div>
-    <h3 class="k" id="regTitle">Ismingiz va raqamingiz</h3>
-    <p class="feat-desc t" style="margin:8px 0 20px">Shunda yoqqan mahsulotlaringizni istalgan vaqt qayta topasiz.</p>
-    <form id="regForm">
-      <input type="text" id="regName" placeholder="Ismingiz" required>
-      <input type="tel" id="regPhone" placeholder="+998 90 123 45 67" required>
-      <div class="reg-err t" id="regErr" hidden>Iltimos, ism va raqamni to'liq kiriting</div>
-      <button type="submit" class="btn gold t" style="width:100%;margin-top:16px">Saqlash</button>
-    </form>
-  </div>
-</div>
 <script src="config.js"></script>
 <script src="app.js"></script>
 </body>
