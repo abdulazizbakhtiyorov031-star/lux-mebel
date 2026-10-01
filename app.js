@@ -83,9 +83,17 @@
   });
   if (!(S.rooms || []).length) $("kolleksiyalar").hidden = true;
 
-  $("works").innerHTML = "";
-  if ((S.works || []).length) { $("ishlar").hidden = false; S.works.forEach(function (w, i) { var d = el("div", "ph"); d.appendChild(img(w)); $("works").appendChild(d); reveal(d, i); }); }
-  else $("navWorks").hidden = true;
+  function renderWorks(list) {
+    $("works").innerHTML = "";
+    if (list && list.length) {
+      $("ishlar").hidden = false; $("navWorks").hidden = false;
+      list.forEach(function (w, i) { var d = el("div", "ph"); d.appendChild(img(w)); $("works").appendChild(d); reveal(d, i); });
+    } else {
+      $("ishlar").hidden = true; $("navWorks").hidden = true;
+    }
+  }
+  renderWorks(S.works || []);
+  fetch("works.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (list) { if (list) renderWorks(list); }).catch(function () { });
 
   var rev = S.reviews || [];
   $("qNav").innerHTML = "";
