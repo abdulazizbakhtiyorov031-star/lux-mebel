@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lux mebel</title>
+<meta name="description" content="Lux mebel — Toshkentda spalnya, mehmonxona, oshxona va bolalar xonasi mebellari. 2008 yildan buyon, bepul yetkazib berish. Buyurtma uchun qo'ng'iroq qiling yoki Telegramda yozing.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero dark">
+  <div class="bg" id="heroBg" hidden></div>
+  <div class="hero-nav t" id="heroNav" hidden><button type="button" id="heroPrev" aria-label="Oldingi surat">←</button><span id="heroCount"></span><button type="button" id="heroNext" aria-label="Keyingi surat">→</button></div>
+  <div class="wrap" style="width:100%"><div class="nav">
+    <div class="l t"><a href="#kolleksiyalar">Kolleksiyalar</a><a href="#katalog">Katalog</a><a href="#ishlar" id="navWorks">Ishlarimiz</a></div>
+    <a class="brand k" href="#" id="brand"></a>
+    <div class="r t"><a href="#aloqa">Aloqa</a><a href="#katalog" id="likesNav">♥ <span id="likesCount">0</span></a><a class="btn out-gold tel" id="hdrPhone" href="#" style="min-height:42px;padding:0 20px"></a></div>
+  </div></div>
+  <div class="wrap" style="width:100%"><div class="copy">
+    <div class="since t" id="since"></div>
+    <h1 class="k"><span id="heroTitle"></span><i id="heroAccent"></i></h1>
+    <div class="cta"><a class="btn gold t" href="#katalog">Katalogni ochish</a><a class="btn out-ivory t" id="heroTg" href="#">Telegramda yozish</a></div>
+  </div></div>
+</header>
+
+<main class="wrap">
+  <div class="trust" id="trust"></div>
+
+  <section class="sec featured" id="tanlangan" hidden>
+    <div class="feat-grid">
+      <div class="feat-copy">
+        <div class="no t">Tanlangan mahsulot</div>
+        <h2 class="k" id="featName"></h2>
+        <p class="feat-desc t" id="featCat"></p>
+        <div class="feat-price k" id="featPrice"></div>
+        <div class="cta"><a class="btn gold t" id="featTg" href="#">Telegramda so'rash</a><a class="btn out-ink t" id="featTel" href="#">Qo'ng'iroq</a></div>
+      </div>
+      <div class="feat-pic ph" id="featPic"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="kolleksiyalar">
+    <div class="head"><div><div class="no t">Xonalar</div><h2 class="k">Kolleksiyalar</h2></div></div>
+    <div class="rooms" id="rooms"></div>
+  </section>
+
+  <section class="sec" id="katalog">
+    <div class="head"><div><div class="no t">Tanlov</div><h2 class="k">Katalog</h2></div><input class="search" id="q" type="search" placeholder="QIDIRISH" aria-label="Mahsulot qidirish"></div>
+    <div class="chips t" id="chips"></div>
+    <div class="grid" id="grid"></div>
+    <div class="more"><button class="btn out-ink t" id="more" hidden>Yana ko'rsatish</button></div>
+  </section>
+
+  <section class="sec" id="ishlar" hidden>
+    <div class="head"><div><div class="no t">Portfolio</div><h2 class="k">Bizning ishlar</h2></div></div>
+    <div class="works" id="works"></div>
+  </section>
+
+  <section class="sec" id="sharhlar" hidden>
+    <div class="quote"><div class="no t" style="margin-bottom:26px">Mijozlar</div>
+      <p class="k" id="qText"></p><div class="who t" id="qWho"></div><div class="qnav" id="qNav"></div></div>
+  </section>
+</main>
+
+<footer class="dark" id="aloqa"><div class="wrap"><div class="grid2">
+  <div><div class="lab t">Buyurtma va maslahat</div><a class="ph1 k" id="ftPhone" href="#"></a><div class="adr" id="addr"></div></div>
+  <div class="row"><a class="btn gold t" id="ftTg" href="#">Telegramda yozish</a></div>
+</div></div></footer>
+
+<div class="bar t"><a id="barPhone" href="#">Qo'ng'iroq</a><a id="barTg" href="#">Telegram</a></div>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button type="button" class="lb-close" id="lbClose" aria-label="Yopish">✕</button>
+  <button type="button" class="lb-arrow lb-prev" id="lbPrev" aria-label="Oldingi">←</button>
+  <div class="lb-stage"><img id="lbImg" alt=""></div>
+  <button type="button" class="lb-arrow lb-next" id="lbNext" aria-label="Keyingi">→</button>
+  <div class="lb-count t" id="lbCount"></div>
+</div>
+
+<div class="modal" id="regModal" hidden>
+  <div class="modal-box">
+    <button type="button" class="modal-close" id="regClose" aria-label="Yopish">✕</button>
+    <div class="no t" style="margin-bottom:14px">Saqlash uchun</div>
+    <h3 class="k" id="regTitle">Ismingiz va raqamingiz</h3>
+    <p class="feat-desc t" style="margin:8px 0 20px">Shunda yoqqan mahsulotlaringizni istalgan vaqt qayta topasiz.</p>
+    <form id="regForm">
+      <input type="text" id="regName" placeholder="Ismingiz" required>
+      <input type="tel" id="regPhone" placeholder="+998 90 123 45 67" required>
+      <div class="reg-err t" id="regErr" hidden>Iltimos, ism va raqamni to'liq kiriting</div>
+      <button type="submit" class="btn gold t" style="width:100%;margin-top:16px">Saqlash</button>
+    </form>
+  </div>
+</div>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,1447 @@
+[
+ {
+  "id": "1",
+  "name": "Gorka Tro'yka",
+  "category": "Gorka",
+  "room": "Mehmonxona",
+  "price": 690,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p001.jpg",
+   "images/p002.jpg"
+  ]
+ },
+ {
+  "id": "2",
+  "name": "Gorka karona",
+  "category": "Gorka",
+  "room": "Mehmonxona",
+  "price": 600,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p003.jpg"
+  ]
+ },
+ {
+  "id": "3",
+  "name": "Kamod 210.sm orex",
+  "category": "Komod",
+  "room": "Yotoqxona",
+  "price": 390,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p004.jpg",
+   "images/p005.jpg"
+  ]
+ },
+ {
+  "id": "4",
+  "name": "Kamod 210 80-80",
+  "category": "Komod",
+  "room": "Yotoqxona",
+  "price": 400,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p006.jpg"
+  ]
+ },
+ {
+  "id": "5",
+  "name": "Kamod 210 80-69",
+  "category": "Komod",
+  "room": "Yotoqxona",
+  "price": 400,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p007.jpg"
+  ]
+ },
+ {
+  "id": "6",
+  "name": "SP.442",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 490,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p008.jpg"
+  ]
+ },
+ {
+  "id": "7",
+  "name": "MANGO SP",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 660,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p009.jpg",
+   "images/p010.jpg",
+   "images/p011.jpg",
+   "images/p012.jpg"
+  ]
+ },
+ {
+  "id": "8",
+  "name": "PK.222",
+  "category": "Pensan komod",
+  "room": "Yotoqxona",
+  "price": 690,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p013.jpg",
+   "images/p014.jpg",
+   "images/p015.jpg",
+   "images/p016.jpg"
+  ]
+ },
+ {
+  "id": "9",
+  "name": "Sp.Sofia",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 850,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p017.jpg"
+  ]
+ },
+ {
+  "id": "10",
+  "name": "Bulut",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 1140,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p018.jpg",
+   "images/p019.jpg",
+   "images/p020.jpg",
+   "images/p021.jpg"
+  ]
+ },
+ {
+  "id": "11",
+  "name": "sp.1111",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 1070,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p022.jpg",
+   "images/p023.jpg",
+   "images/p024.jpg",
+   "images/p025.jpg"
+  ]
+ },
+ {
+  "id": "12",
+  "name": "Pk. AVAL",
+  "category": "Pensan komod",
+  "room": "Yotoqxona",
+  "price": 700,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p026.jpg"
+  ]
+ },
+ {
+  "id": "13",
+  "name": "sp.001",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 1040,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p027.jpg"
+  ]
+ },
+ {
+  "id": "14",
+  "name": "Sp.307",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 640,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p028.jpg"
+  ]
+ },
+ {
+  "id": "15",
+  "name": "Vertus sp",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 950,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p029.jpg"
+  ]
+ },
+ {
+  "id": "16",
+  "name": "Mantana 5.",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 860,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p030.jpg"
+  ]
+ },
+ {
+  "id": "17",
+  "name": "Mantana Andsol",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 950,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p031.jpg"
+  ]
+ },
+ {
+  "id": "18",
+  "name": "Jeksin 6",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 850,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p032.jpg",
+   "images/p033.jpg"
+  ]
+ },
+ {
+  "id": "19",
+  "name": "Viola sp",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 950,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p034.jpg"
+  ]
+ },
+ {
+  "id": "20",
+  "name": "Mantana sp",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 950,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p035.jpg"
+  ]
+ },
+ {
+  "id": "21",
+  "name": "Palma",
+  "category": "Pensan komod",
+  "room": "Yotoqxona",
+  "price": 390,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p036.jpg"
+  ]
+ },
+ {
+  "id": "22",
+  "name": "Karavat Sadaf",
+  "category": "Krovat",
+  "room": "Yotoqxona",
+  "price": 450,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p037.jpg",
+   "images/p038.jpg",
+   "images/p039.jpg",
+   "images/p040.jpg"
+  ]
+ },
+ {
+  "id": "23",
+  "name": "Sp.Tokiyo",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 1410,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p041.jpg",
+   "images/p042.jpg",
+   "images/p043.jpg",
+   "images/p044.jpg"
+  ]
+ },
+ {
+  "id": "24",
+  "name": "Sp.Sora",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 800,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p045.jpg",
+   "images/p046.jpg",
+   "images/p047.jpg",
+   "images/p048.jpg"
+  ]
+ },
+ {
+  "id": "25",
+  "name": "Sp.Elif",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 970,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p049.jpg",
+   "images/p050.jpg",
+   "images/p051.jpg",
+   "images/p052.jpg"
+  ]
+ },
+ {
+  "id": "26",
+  "name": "Karavat 44.45",
+  "category": "Krovat",
+  "room": "Yotoqxona",
+  "price": 420,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p053.jpg",
+   "images/p054.jpg",
+   "images/p055.jpg",
+   "images/p056.jpg"
+  ]
+ },
+ {
+  "id": "27",
+  "name": "Karavat 44.45",
+  "category": "Krovat",
+  "room": "Yotoqxona",
+  "price": 250,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p057.jpg",
+   "images/p058.jpg",
+   "images/p059.jpg"
+  ]
+ },
+ {
+  "id": "28",
+  "name": "Zumrad",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 510,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p060.jpg"
+  ]
+ },
+ {
+  "id": "29",
+  "name": "Madel Miss",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 820,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p061.jpg",
+   "images/p062.jpg",
+   "images/p063.jpg",
+   "images/p064.jpg"
+  ]
+ },
+ {
+  "id": "30",
+  "name": "Sp. Jekson 6",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 590,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p065.jpg"
+  ]
+ },
+ {
+  "id": "31",
+  "name": "Sp. Jekson 4",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 530,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p066.jpg"
+  ]
+ },
+ {
+  "id": "32",
+  "name": "Sp. Jekson 3",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 490,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p067.jpg"
+  ]
+ },
+ {
+  "id": "33",
+  "name": "Kamod Sadaf",
+  "category": "Komod",
+  "room": "Yotoqxona",
+  "price": 0,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p068.jpg",
+   "images/p069.jpg"
+  ]
+ },
+ {
+  "id": "34",
+  "name": "VENERA",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 1040,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p070.jpg",
+   "images/p071.jpg",
+   "images/p072.jpg",
+   "images/p073.jpg"
+  ]
+ },
+ {
+  "id": "35",
+  "name": "Sp.031",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 510,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p074.jpg"
+  ]
+ },
+ {
+  "id": "36",
+  "name": "Roma",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 730,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p075.jpg",
+   "images/p076.jpg",
+   "images/p077.jpg",
+   "images/p078.jpg"
+  ]
+ },
+ {
+  "id": "37",
+  "name": "Sp. RIM",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 1030,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p079.jpg",
+   "images/p080.jpg",
+   "images/p081.jpg",
+   "images/p082.jpg"
+  ]
+ },
+ {
+  "id": "38",
+  "name": "ALINA",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 1230,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p083.jpg",
+   "images/p084.jpg",
+   "images/p085.jpg",
+   "images/p086.jpg"
+  ]
+ },
+ {
+  "id": "39",
+  "name": "Sp. 0104",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 1130,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p087.jpg",
+   "images/p088.jpg",
+   "images/p089.jpg",
+   "images/p090.jpg"
+  ]
+ },
+ {
+  "id": "40",
+  "name": "Elegand",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 860,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p091.jpg",
+   "images/p092.jpg",
+   "images/p093.jpg",
+   "images/p094.jpg"
+  ]
+ },
+ {
+  "id": "41",
+  "name": "Florida",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 1020,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p095.jpg",
+   "images/p096.jpg",
+   "images/p097.jpg",
+   "images/p098.jpg"
+  ]
+ },
+ {
+  "id": "42",
+  "name": "Parij",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 900,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p099.jpg",
+   "images/p100.jpg",
+   "images/p101.jpg",
+   "images/p102.jpg"
+  ]
+ },
+ {
+  "id": "43",
+  "name": "London",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 1040,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p103.jpg",
+   "images/p104.jpg",
+   "images/p105.jpg",
+   "images/p106.jpg"
+  ]
+ },
+ {
+  "id": "44",
+  "name": "Shkaf 191 160.sm",
+  "category": "Шкаф",
+  "room": "Yotoqxona",
+  "price": 190,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p107.jpg"
+  ]
+ },
+ {
+  "id": "45",
+  "name": "Shkaf 191 130.sm",
+  "category": "Шкаф",
+  "room": "Yotoqxona",
+  "price": 215,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p108.jpg"
+  ]
+ },
+ {
+  "id": "46",
+  "name": "Shkaf 191 180.sm",
+  "category": "Шкаф",
+  "room": "Yotoqxona",
+  "price": 230,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p109.jpg"
+  ]
+ },
+ {
+  "id": "47",
+  "name": "Shkaf 191",
+  "category": "Шкаф",
+  "room": "Yotoqxona",
+  "price": 220,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p110.jpg"
+  ]
+ },
+ {
+  "id": "48",
+  "name": "555",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 480,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p111.jpg"
+  ]
+ },
+ {
+  "id": "49",
+  "name": "888",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 480,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p112.jpg"
+  ]
+ },
+ {
+  "id": "50",
+  "name": "Verona",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 920,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p113.jpg",
+   "images/p114.jpg",
+   "images/p115.jpg",
+   "images/p116.jpg"
+  ]
+ },
+ {
+  "id": "51",
+  "name": "12.21",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 1040,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p117.jpg",
+   "images/p118.jpg",
+   "images/p119.jpg"
+  ]
+ },
+ {
+  "id": "52",
+  "name": "Samo",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 920,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p120.jpg",
+   "images/p121.jpg",
+   "images/p122.jpg"
+  ]
+ },
+ {
+  "id": "53",
+  "name": "Bursa",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 1170,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p123.jpg",
+   "images/p124.jpg",
+   "images/p125.jpg",
+   "images/p126.jpg"
+  ]
+ },
+ {
+  "id": "54",
+  "name": "Sp.444",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 530,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p127.jpg",
+   "images/p128.jpg",
+   "images/p129.jpg",
+   "images/p130.jpg"
+  ]
+ },
+ {
+  "id": "55",
+  "name": "Sp.805",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 950,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p131.jpg",
+   "images/p132.jpg",
+   "images/p133.jpg",
+   "images/p134.jpg"
+  ]
+ },
+ {
+  "id": "56",
+  "name": "SP 3131",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 870,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p135.jpg",
+   "images/p136.jpg",
+   "images/p137.jpg",
+   "images/p138.jpg"
+  ]
+ },
+ {
+  "id": "57",
+  "name": "Verona",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 920,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p139.jpg",
+   "images/p140.jpg",
+   "images/p141.jpg",
+   "images/p142.jpg"
+  ]
+ },
+ {
+  "id": "58",
+  "name": "Malak",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 890,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p143.jpg",
+   "images/p144.jpg",
+   "images/p145.jpg",
+   "images/p146.jpg"
+  ]
+ },
+ {
+  "id": "59",
+  "name": "Yulduz",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 890,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p147.jpg",
+   "images/p148.jpg",
+   "images/p149.jpg",
+   "images/p150.jpg"
+  ]
+ },
+ {
+  "id": "60",
+  "name": "Afina 6. Lux",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 535,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p151.jpg"
+  ]
+ },
+ {
+  "id": "61",
+  "name": "Afina 6.oq",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 525,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p152.jpg"
+  ]
+ },
+ {
+  "id": "62",
+  "name": "Xabib Sp",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 620,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p153.jpg"
+  ]
+ },
+ {
+  "id": "63",
+  "name": "Shkaf 771",
+  "category": "Shkaf",
+  "room": "Yotoqxona",
+  "price": 290,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p154.jpg",
+   "images/p155.jpg",
+   "images/p156.jpg"
+  ]
+ },
+ {
+  "id": "64",
+  "name": "Karavat 44.45 k.",
+  "category": "Krovat",
+  "room": "Yotoqxona",
+  "price": 410,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p157.jpg",
+   "images/p158.jpg",
+   "images/p159.jpg",
+   "images/p160.jpg"
+  ]
+ },
+ {
+  "id": "65",
+  "name": "Zera Sp",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 700,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p161.jpg"
+  ]
+ },
+ {
+  "id": "66",
+  "name": "HUMO",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 870,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p162.jpg",
+   "images/p163.jpg",
+   "images/p164.jpg",
+   "images/p165.jpg"
+  ]
+ },
+ {
+  "id": "67",
+  "name": "Kapuchino",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 980,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p166.jpg",
+   "images/p167.jpg",
+   "images/p168.jpg",
+   "images/p169.jpg"
+  ]
+ },
+ {
+  "id": "68",
+  "name": "Elitte",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 1380,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p170.jpg",
+   "images/p171.jpg",
+   "images/p172.jpg",
+   "images/p173.jpg"
+  ]
+ },
+ {
+  "id": "69",
+  "name": "PARIJ KASHMIR",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 900,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p174.jpg",
+   "images/p175.jpg",
+   "images/p176.jpg",
+   "images/p177.jpg"
+  ]
+ },
+ {
+  "id": "70",
+  "name": "Berlin",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 860,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p178.jpg",
+   "images/p179.jpg",
+   "images/p180.jpg",
+   "images/p181.jpg"
+  ]
+ },
+ {
+  "id": "71",
+  "name": "SP LEO",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 1030,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p182.jpg",
+   "images/p183.jpg",
+   "images/p184.jpg",
+   "images/p185.jpg"
+  ]
+ },
+ {
+  "id": "72",
+  "name": "RIGA",
+  "category": "Spalnya",
+  "room": "Yotoqxona",
+  "price": 980,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p186.jpg",
+   "images/p187.jpg",
+   "images/p188.jpg"
+  ]
+ },
+ {
+  "id": "73",
+  "name": "Oshxona bufeti 140",
+  "category": "Oshxona garnituri",
+  "room": "Oshxona",
+  "price": 2600000,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p189.jpg"
+  ],
+  "currency": "so'm"
+ },
+ {
+  "id": "74",
+  "name": "Oshxona garnituri 160",
+  "category": "Oshxona garnituri",
+  "room": "Oshxona",
+  "price": 3100000,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p190.jpg"
+  ],
+  "currency": "so'm"
+ },
+ {
+  "id": "75",
+  "name": "Oshxona garnituri 200",
+  "category": "Oshxona garnituri",
+  "room": "Oshxona",
+  "price": 3900000,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p191.jpg"
+  ],
+  "currency": "so'm"
+ },
+ {
+  "id": "76",
+  "name": "Oshxona garnituri 240",
+  "category": "Oshxona garnituri",
+  "room": "Oshxona",
+  "price": 4500000,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p192.jpg"
+  ],
+  "currency": "so'm"
+ },
+ {
+  "id": "77",
+  "name": "Oshxona bufeti 100",
+  "category": "Oshxona garnituri",
+  "room": "Oshxona",
+  "price": 1800000,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p193.jpg"
+  ],
+  "currency": "so'm"
+ },
+ {
+  "id": "78",
+  "name": "Oshxona garnituri 130 (moykali)",
+  "category": "Oshxona garnituri",
+  "room": "Oshxona",
+  "price": 2600000,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p194.jpg"
+  ],
+  "currency": "so'm"
+ },
+ {
+  "id": "79",
+  "name": "Oshxona bufeti 150",
+  "category": "Oshxona garnituri",
+  "room": "Oshxona",
+  "price": 2900000,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p195.jpg"
+  ],
+  "currency": "so'm"
+ },
+ {
+  "id": "80",
+  "name": "Oshxona bufeti 130",
+  "category": "Oshxona garnituri",
+  "room": "Oshxona",
+  "price": 2500000,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p196.jpg"
+  ],
+  "currency": "so'm"
+ },
+ {
+  "id": "81",
+  "name": "Oshxona bufeti 80",
+  "category": "Oshxona garnituri",
+  "room": "Oshxona",
+  "price": 1500000,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p197.jpg"
+  ],
+  "currency": "so'm"
+ },
+ {
+  "id": "82",
+  "name": "Oshxona burchagi 200x150",
+  "category": "Oshxona burchak to'plami",
+  "room": "Oshxona",
+  "price": 0,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p198.jpg"
+  ]
+ },
+ {
+  "id": "83",
+  "name": "Oshxona burchagi (stolsiz)",
+  "category": "Oshxona burchak to'plami",
+  "room": "Oshxona",
+  "price": 0,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p199.jpg"
+  ]
+ },
+ {
+  "id": "84",
+  "name": "Oshxona burchagi 200x160",
+  "category": "Oshxona burchak to'plami",
+  "room": "Oshxona",
+  "price": 260,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p200.jpg"
+  ]
+ },
+ {
+  "id": "85",
+  "name": "Oshxona burchagi 200x150 B",
+  "category": "Oshxona burchak to'plami",
+  "room": "Oshxona",
+  "price": 260,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p201.jpg"
+  ]
+ },
+ {
+  "id": "86",
+  "name": "Oshxona burchagi 200x160 B",
+  "category": "Oshxona burchak to'plami",
+  "room": "Oshxona",
+  "price": 260,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p202.jpg"
+  ]
+ },
+ {
+  "id": "87",
+  "name": "Bolalar to'plami N_301",
+  "category": "Bolalar to'plami",
+  "room": "Bolalar xonasi",
+  "price": 465,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p203.jpg",
+   "images/p204.jpg",
+   "images/p205.jpg",
+   "images/p206.jpg"
+  ]
+ },
+ {
+  "id": "88",
+  "name": "Bolalar to'plami Palma",
+  "category": "Bolalar to'plami",
+  "room": "Bolalar xonasi",
+  "price": 570,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p207.jpg",
+   "images/p208.jpg",
+   "images/p209.jpg"
+  ]
+ },
+ {
+  "id": "89",
+  "name": "Bolalar to'plami Prins",
+  "category": "Bolalar to'plami",
+  "room": "Bolalar xonasi",
+  "price": 530,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p210.jpg",
+   "images/p211.jpg",
+   "images/p212.jpg"
+  ]
+ },
+ {
+  "id": "90",
+  "name": "Bolalar to'plami Angliya",
+  "category": "Bolalar to'plami",
+  "room": "Bolalar xonasi",
+  "price": 860,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p213.jpg",
+   "images/p214.jpg",
+   "images/p215.jpg",
+   "images/p216.jpg"
+  ]
+ },
+ {
+  "id": "91",
+  "name": "Bolalar to'plami Nyu-York",
+  "category": "Bolalar to'plami",
+  "room": "Bolalar xonasi",
+  "price": 700,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p217.jpg"
+  ]
+ },
+ {
+  "id": "92",
+  "name": "Bolalar to'plami Silver",
+  "category": "Bolalar to'plami",
+  "room": "Bolalar xonasi",
+  "price": 730,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p218.jpg"
+  ]
+ },
+ {
+  "id": "93",
+  "name": "Bolalar to'plami Blek boy",
+  "category": "Bolalar to'plami",
+  "room": "Bolalar xonasi",
+  "price": 550,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p219.jpg"
+  ]
+ },
+ {
+  "id": "94",
+  "name": "Bolalar to'plami Modern",
+  "category": "Bolalar to'plami",
+  "room": "Bolalar xonasi",
+  "price": 590,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p220.jpg"
+  ]
+ },
+ {
+  "id": "95",
+  "name": "Bolalar to'plami Modern II",
+  "category": "Bolalar to'plami",
+  "room": "Bolalar xonasi",
+  "price": 590,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p221.jpg",
+   "images/p222.jpg"
+  ]
+ },
+ {
+  "id": "96",
+  "name": "Bolalar to'plami Diplomat",
+  "category": "Bolalar to'plami",
+  "room": "Bolalar xonasi",
+  "price": 600,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p223.jpg",
+   "images/p224.jpg"
+  ]
+ },
+ {
+  "id": "97",
+  "name": "Bolalar to'plami",
+  "category": "Bolalar to'plami",
+  "room": "Bolalar xonasi",
+  "price": 870,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p225.jpg",
+   "images/p226.jpg"
+  ]
+ },
+ {
+  "id": "98",
+  "name": "Bolalar to'plami Blek boy II",
+  "category": "Bolalar to'plami",
+  "room": "Bolalar xonasi",
+  "price": 590,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p227.jpg",
+   "images/p228.jpg",
+   "images/p229.jpg",
+   "images/p230.jpg"
+  ]
+ },
+ {
+  "id": "99",
+  "name": "Shkaf Jeksin 130",
+  "category": "Shkaf",
+  "room": "Yotoqxona",
+  "price": 230,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p231.jpg"
+  ]
+ },
+ {
+  "id": "100",
+  "name": "Shkaf Jeksin 165",
+  "category": "Shkaf",
+  "room": "Yotoqxona",
+  "price": 250,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p232.jpg"
+  ]
+ },
+ {
+  "id": "101",
+  "name": "Shkaf 07 240x180",
+  "category": "Shkaf",
+  "room": "Yotoqxona",
+  "price": 320,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p233.jpg",
+   "images/p234.jpg",
+   "images/p235.jpg",
+   "images/p236.jpg"
+  ]
+ },
+ {
+  "id": "102",
+  "name": "Shkaf 55 210x115",
+  "category": "Shkaf",
+  "room": "Yotoqxona",
+  "price": 220,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p237.jpg",
+   "images/p238.jpg",
+   "images/p239.jpg"
+  ]
+ },
+ {
+  "id": "103",
+  "name": "Shkaf Piramida 130x240",
+  "category": "Shkaf",
+  "room": "Yotoqxona",
+  "price": 330,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p240.jpg"
+  ]
+ },
+ {
+  "id": "104",
+  "name": "Shkaf 180",
+  "category": "Shkaf",
+  "room": "Yotoqxona",
+  "price": 350,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p241.jpg"
+  ]
+ },
+ {
+  "id": "105",
+  "name": "Shkaf 165",
+  "category": "Shkaf",
+  "room": "Yotoqxona",
+  "price": 340,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p242.jpg",
+   "images/p243.jpg"
+  ]
+ },
+ {
+  "id": "106",
+  "name": "Shkaf Zaynab",
+  "category": "Shkaf",
+  "room": "Yotoqxona",
+  "price": 350,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p244.jpg",
+   "images/p245.jpg"
+  ]
+ },
+ {
+  "id": "107",
+  "name": "Poyabzal shkafi",
+  "category": "Poyabzal shkafi",
+  "room": "Yotoqxona",
+  "price": 110,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p246.jpg",
+   "images/p247.jpg"
+  ]
+ },
+ {
+  "id": "108",
+  "name": "Shkaf Astana 90",
+  "category": "Shkaf",
+  "room": "Yotoqxona",
+  "price": 130,
+  "oldPrice": 0,
+  "isNew": false,
+  "images": [
+   "images/p248.jpg"
+  ]
+ }
+]
