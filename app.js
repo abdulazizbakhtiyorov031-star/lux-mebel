@@ -219,7 +219,7 @@
   }
 
   // --- Ariza qoldirish (pastki forma) ---
-  var ARIZA_URL = "https://api.luxmebel.uz/ariza";
+  var ARIZA_URL = "https://tasks.jarvisaiassistants.com/lux-ariza";
   function renderArizaLikes() {
     var box = $("arizaLikesList");
     if (!box) return;
