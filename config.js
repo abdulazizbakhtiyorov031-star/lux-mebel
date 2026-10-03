@@ -35,7 +35,7 @@ window.SITE = {
     "images/p095.jpg"
   ],
   reviews: [],
-  currency: "$",
+  currency: "y.e.",
   sheetCsvUrl: "",
   pageSize: 24,
 };
