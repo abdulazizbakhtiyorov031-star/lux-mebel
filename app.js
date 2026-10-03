@@ -83,15 +83,26 @@
   });
   if (!(S.rooms || []).length) $("kolleksiyalar").hidden = true;
 
+  var worksList = [], worksShown = 0, WORKS_PAGE = 8;
+  function showMoreWorks() {
+    var end = Math.min(worksList.length, worksShown + WORKS_PAGE);
+    for (var i = worksShown; i < end; i++) (function (i) {
+      var d = el("div", "ph work"); d.appendChild(img(worksList[i], "Ish " + (i + 1)));
+      d.onclick = function () { lbOpen(worksList, i); };
+      $("works").appendChild(d); reveal(d, i % WORKS_PAGE);
+    })(i);
+    worksShown = end;
+    $("moreWorks").hidden = worksShown >= worksList.length;
+  }
   function renderWorks(list) {
-    $("works").innerHTML = "";
-    if (list && list.length) {
-      $("ishlar").hidden = false; $("navWorks").hidden = false;
-      list.forEach(function (w, i) { var d = el("div", "ph"); d.appendChild(img(w)); $("works").appendChild(d); reveal(d, i); });
+    worksList = list || []; worksShown = 0; $("works").innerHTML = "";
+    if (worksList.length) {
+      $("ishlar").hidden = false; $("navWorks").hidden = false; showMoreWorks();
     } else {
-      $("ishlar").hidden = true; $("navWorks").hidden = true;
+      $("ishlar").hidden = true; $("navWorks").hidden = true; $("moreWorks").hidden = true;
     }
   }
+  $("moreWorks").onclick = showMoreWorks;
   renderWorks(S.works || []);
   fetch("works.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (list) { if (list) renderWorks(list); }).catch(function () { });
 
@@ -141,7 +152,7 @@
   function imgsOf(p) { return (p.images && p.images.length) ? p.images : (p.image ? [p.image] : []); }
 
   // --- lightbox (mahsulotning barcha suratlarini ko'rish)
-  var lbImgs = [], lbIdx = 0;
+  var lbImgs = [], lbIdx = 0, lbSwiped = false, lbOpenedAt = 0;
   function lbShow(i) {
     lbIdx = (i + lbImgs.length) % lbImgs.length;
     $("lbImg").src = lbImgs[lbIdx];
@@ -149,13 +160,30 @@
   }
   function lbOpen(imgs, start) {
     if (!imgs || !imgs.length) return;
-    lbImgs = imgs; $("lightbox").hidden = false; document.body.style.overflow = "hidden"; lbShow(start || 0);
+    lbImgs = imgs; lbOpenedAt = Date.now(); $("lightbox").hidden = false; document.body.style.overflow = "hidden"; lbShow(start || 0);
   }
   function lbClose() { $("lightbox").hidden = true; document.body.style.overflow = ""; }
   $("lbClose").onclick = lbClose;
-  $("lightbox").onclick = function (e) { if (e.target.id === "lightbox") lbClose(); };
+  $("lightbox").onclick = function (e) { if (Date.now() - lbOpenedAt < 450) return; if (lbSwiped) { lbSwiped = false; return; } if (e.target.id === "lightbox") lbClose(); };
   $("lbPrev").onclick = function () { lbShow(lbIdx - 1); };
   $("lbNext").onclick = function () { lbShow(lbIdx + 1); };
+  (function () {
+    var box = $("lightbox"), im = $("lbImg"), sx = 0, dx = 0, on = false;
+    box.addEventListener("pointerdown", function (e) {
+      if (e.target.closest("button") || (e.pointerType === "mouse" && e.button !== 0)) return;
+      on = true; sx = e.clientX; dx = 0; box.setPointerCapture(e.pointerId);
+    });
+    box.addEventListener("pointermove", function (e) {
+      if (!on) return; dx = e.clientX - sx;
+      if (Math.abs(dx) > 6) { im.style.transition = "none"; im.style.transform = "translateX(" + dx + "px)"; }
+    });
+    function end() {
+      if (!on) return; on = false; im.style.transition = ""; im.style.transform = "";
+      if (Math.abs(dx) > 50) { lbSwiped = true; lbShow(lbIdx + (dx < 0 ? 1 : -1)); }
+      else if (Math.abs(dx) > 6) lbSwiped = true;
+    }
+    box.addEventListener("pointerup", end); box.addEventListener("pointercancel", end);
+  })();
   document.addEventListener("keydown", function (e) {
     if ($("lightbox").hidden) return;
     if (e.key === "Escape") lbClose();
@@ -230,13 +258,60 @@
       return !q || (p.name + " " + p.category + " " + p.room).toLowerCase().indexOf(q) > -1;
     });
   }
+  // --- kartochkada rasmlarni aylantirish (barmoq bilan surish / strelka / klaviatura)
+  function multiPic(pic, imgs, name) {
+    var track = el("div", "track"), dots = el("div", "dots"), cnt = el("span", "badge count t"), ims = [], idx = 0;
+    pic.classList.add("multi"); pic.tabIndex = 0; pic.setAttribute("aria-label", name + " — rasmlar");
+    imgs.forEach(function (s, i) {
+      var im = i === 0 ? img(s, name) : el("img", "cover");
+      if (i > 0) { im.alt = name; im.decoding = "async"; im.setAttribute("data-src", s); }
+      im.draggable = false; ims.push(im); track.appendChild(im);
+      if (imgs.length <= 8) dots.appendChild(el("i"));
+    });
+    var prev = el("button", "arrow l", "←"), next = el("button", "arrow r", "→");
+    prev.type = next.type = "button"; prev.setAttribute("aria-label", "Oldingi rasm"); next.setAttribute("aria-label", "Keyingi rasm");
+    pic.appendChild(track); pic.appendChild(dots); pic.appendChild(cnt); pic.appendChild(prev); pic.appendChild(next);
+    function ensure(i) { var im = ims[i]; if (im && !im.getAttribute("src") && im.getAttribute("data-src")) im.src = im.getAttribute("data-src"); }
+    function go(i) {
+      idx = Math.max(0, Math.min(imgs.length - 1, i)); ensure(idx); ensure(idx + 1);
+      track.style.transform = "translateX(-" + idx * 100 + "%)";
+      cnt.textContent = (idx + 1) + " / " + imgs.length;
+      [].forEach.call(dots.children, function (d, j) { d.classList.toggle("on", j === idx); });
+      prev.disabled = idx === 0; next.disabled = idx === imgs.length - 1;
+    }
+    prev.onclick = function (e) { e.stopPropagation(); go(idx - 1); };
+    next.onclick = function (e) { e.stopPropagation(); go(idx + 1); };
+    pic.addEventListener("pointerenter", function () { ensure(1); });
+    pic.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowRight") go(idx + 1); else if (e.key === "ArrowLeft") go(idx - 1); else if (e.key === "Enter") lbOpen(imgs, idx);
+    });
+    var sx = 0, dx = 0, down = false, moved = false;
+    pic.addEventListener("pointerdown", function (e) {
+      if (e.target.closest(".arrow, .like-btn") || (e.pointerType === "mouse" && e.button !== 0)) return;
+      down = true; moved = false; sx = e.clientX; dx = 0; ensure(idx + 1); pic.setPointerCapture(e.pointerId);
+    });
+    pic.addEventListener("pointermove", function (e) {
+      if (!down) return; dx = e.clientX - sx;
+      if (Math.abs(dx) > 6) { moved = true; pic.classList.add("drag"); }
+      if (moved) {
+        var edge = (idx === 0 && dx > 0) || (idx === imgs.length - 1 && dx < 0);
+        track.style.transform = "translateX(calc(-" + idx * 100 + "% + " + (edge ? dx * 0.35 : dx) + "px))";
+      }
+    });
+    pic.addEventListener("pointerup", function () {
+      if (!down) return; down = false; pic.classList.remove("drag");
+      if (moved) { go(Math.abs(dx) > pic.clientWidth * 0.18 ? idx + (dx < 0 ? 1 : -1) : idx); } else lbOpen(imgs, idx);
+    });
+    pic.addEventListener("pointercancel", function () { down = false; pic.classList.remove("drag"); go(idx); });
+    go(0);
+  }
   function card(p) {
     var a = el("article", "card"), pic = el("div", "pic ph"), imgs = imgsOf(p);
-    if (imgs.length) {
+    if (imgs.length > 1) multiPic(pic, imgs, p.name);
+    else if (imgs.length) {
       pic.appendChild(img(imgs[0], p.name));
       pic.style.cursor = "pointer";
       pic.onclick = function () { lbOpen(imgs, 0); };
-      if (imgs.length > 1) pic.appendChild(el("span", "badge count t", imgs.length + " surat"));
     }
     if (isSale(p)) pic.appendChild(el("span", "badge sale t", "−" + Math.round((1 - p.price / p.oldPrice) * 100) + "%"));
     else if (p.isNew) pic.appendChild(el("span", "badge new t", "Yangi"));
