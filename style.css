@@ -160,7 +160,7 @@ p{margin:0}
 
 /* steps */
 .sec-steps{background:var(--paper);border-block:1px solid var(--line)}
-.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .steps li{padding:28px;border:1px solid var(--line);border-radius:var(--r);background:var(--bg)}
 .steps .n{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--ink);color:#fff;font-family:var(--f-d);font-size:24px;font-weight:700;margin-bottom:16px}
 .steps h3{font-size:26px;margin-bottom:8px}
@@ -255,7 +255,7 @@ p{margin:0}
   .trust-in>div:nth-child(3){border-left:0}
   .trust-in>div:nth-child(n+3){border-top:1px solid var(--line)}
   .rooms{grid-template-columns:repeat(2,1fr)}
-  .steps{grid-template-columns:1fr}
+  .steps{grid-template-columns:repeat(2,1fr)}
   .f-row{grid-template-columns:1fr 1fr}
   .search{grid-column:1/-1}
   .foot-in{grid-template-columns:1fr}
@@ -297,3 +297,5 @@ p{margin:0}
 .acts .short{display:none}
 .card .desc{color:#4a443c;font-size:15px;margin-top:6px}
 @media (max-width:700px){.acts .long{display:none}.acts .short{display:inline}}
+
+@media (max-width:600px){.steps{grid-template-columns:1fr}}
