@@ -1,4 +1,4 @@
-// Lux mebel — sayt sozlamalari. Mahsulotlar: products.json (bot shuni yangilaydi).
+// Lux mebel — sayt sozlamalari. Mahsulotlar: products.json (bot shuni yangilaydi), ishlar: works.json.
 window.SITE = {
   brand: "Lux mebel",
   phone: "+998881919090",
@@ -7,26 +7,17 @@ window.SITE = {
   address: "Toshkent",
   hours: "09:00–20:00, har kuni",
   mapUrl: "",
-  since: "2008 yildan buyon",
-  heroTitle: "Uyingizga mos",
-  heroTitleAccent: "nafislik va qulaylik",
-  heroImage: "",
+  since: "2008 yildan beri",
   heroImages: [
-    "images/p103.jpg",
-    "images/p001.jpg",
-    "images/p079.jpg"
-  ],
-  trust: [
-    { big: "18 yil", small: "bozorda" },
-    { big: "Bepul", small: "Toshkent ichida yetkazish" },
-    { big: "100+", small: "model katalogda" },
-    { big: "Optom", small: "va chakana narxlarda" }
+    "images/l/p103.webp",
+    "images/l/p001.webp",
+    "images/l/p079.webp"
   ],
   rooms: [
+    { name: "Yotoqxona", image: "images/p249.jpg" },
     { name: "Mehmonxona", image: "images/p001.jpg" },
-    { name: "Yotoqxona", image: "images/p079.jpg" },
-    { name: "Oshxona", image: "images/p189.jpg" },
-    { name: "Bolalar xonasi", image: "images/p203.jpg" }
+    { name: "Oshxona", image: "images/p198.jpg" },
+    { name: "Bolalar xonasi", image: "images/p207.jpg" }
   ],
   works: [
     "images/p004.jpg",
@@ -36,6 +27,5 @@ window.SITE = {
   ],
   reviews: [],
   currency: "y.e.",
-  sheetCsvUrl: "",
-  pageSize: 24,
+  pageSize: 24
 };

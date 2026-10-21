@@ -1,378 +1,327 @@
 (function () {
-  var S = window.SITE, $ = function (id) { return document.getElementById(id); };
-  var all = [], cat = "", flag = "", room = "", query = "", shown = 0;
-  var tg = function (text) { return "https://t.me/" + S.telegram + (text ? "?text=" + encodeURIComponent(text) : ""); };
-  var el = function (tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
-  var img = function (src, alt) { var i = el("img", "cover"); i.src = src; i.alt = alt || ""; i.loading = "lazy"; i.decoding = "async"; return i; };
+  "use strict";
+  var S = window.SITE || {};
+  var $ = function (id) { return document.getElementById(id); };
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // --- animatsiya yordamchilari
-  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var io = ("IntersectionObserver" in window) ? new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-  }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }) : null;
-  function reveal(node, i) {
-    if (reduceMotion) { node.classList.add("in"); return; }
-    node.classList.add("reveal");
-    node.style.transitionDelay = (Math.min(i || 0, 8) * 0.06) + "s";
-    if (io) io.observe(node); else node.classList.add("in");
-  }
-  function countUp(node, fullText, target, numStr) {
-    var started = false;
-    var run = function () {
-      if (started) return; started = true;
-      var start = null, dur = 900;
-      function step(ts) {
-        if (!start) start = ts;
-        var p = Math.min((ts - start) / dur, 1), val = Math.round(target * (1 - Math.pow(1 - p, 3)));
-        node.textContent = fullText.replace(numStr, String(val));
-        if (p < 1) requestAnimationFrame(step); else node.textContent = fullText;
-      }
-      requestAnimationFrame(step);
-    };
-    if (io) { var obs = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { run(); obs.disconnect(); } }); }, { threshold: 0.4 }); obs.observe(node); }
-    else run();
-  }
-
-  // --- statik qismlar
-  document.title = S.brand + " — mebel katalogi";
-  $("brand").textContent = S.brand;
-  $("since").textContent = S.since;
-  $("heroTitle").textContent = S.heroTitle;
-  $("heroAccent").textContent = S.heroTitleAccent;
-  var heroImgs = (S.heroImages && S.heroImages.length) ? S.heroImages : (S.heroImage ? [S.heroImage] : []);
-  if (heroImgs.length) {
-    var hb = $("heroBg"); hb.hidden = false; hb.innerHTML = "";
-    var heroEls = heroImgs.map(function (src, i) { var im = img(src); im.style.opacity = i === 0 ? "1" : "0"; im.style.transition = "opacity 1s ease"; hb.appendChild(im); return im; });
-    var heroIdx = 0;
-    var showHero = function (i) {
-      heroIdx = (i + heroImgs.length) % heroImgs.length;
-      heroEls.forEach(function (el2, j) { el2.style.opacity = j === heroIdx ? "1" : "0"; });
-      $("heroCount").textContent = String(heroIdx + 1).padStart(2, "0") + " / " + String(heroImgs.length).padStart(2, "0");
-    };
-    if (heroImgs.length > 1) {
-      $("heroNav").hidden = false;
-      $("heroPrev").onclick = function () { showHero(heroIdx - 1); };
-      $("heroNext").onclick = function () { showHero(heroIdx + 1); };
-      if (!reduceMotion) setInterval(function () { showHero(heroIdx + 1); }, 6000);
-    }
-    showHero(0);
-  }
-  ["hdrPhone", "ftPhone", "barPhone"].forEach(function (id) { $(id).href = "tel:" + S.phone; });
-  $("hdrPhone").textContent = S.phoneShow; $("ftPhone").textContent = S.phoneShow;
-  ["heroTg", "barTg", "ftTg"].forEach(function (id) { $(id).href = tg(); });
-  var adr = $("addr"); adr.textContent = S.address + " · " + S.hours;
-  if (S.mapUrl) { var m = el("a", "", "Xaritada ochish"); m.href = S.mapUrl; m.target = "_blank"; m.rel = "noopener"; adr.appendChild(document.createTextNode(" · ")); adr.appendChild(m); }
-
-  $("trust").innerHTML = "";
-  (S.trust || []).forEach(function (t, i) {
-    var d = el("div"), big = el("div", "big k"); big.textContent = t.big; d.appendChild(big);
-    d.appendChild(el("div", "small t")).textContent = t.small; $("trust").appendChild(d);
-    reveal(d, i);
-    var m = (t.big || "").match(/\d+/);
-    if (m && !reduceMotion) countUp(big, t.big, parseInt(m[0], 10), m[0]);
-  });
-
-  $("rooms").innerHTML = "";
-  var roomBtns = [];
-  (S.rooms || []).forEach(function (r, i) {
-    var b = el("button", "room ph"); b.type = "button";
-    if (r.image) b.appendChild(img(r.image, r.name));
-    b.appendChild(el("span", "nm k")).textContent = r.name;
-    b.onclick = function () { room = room === r.name ? "" : r.name; roomBtns.forEach(function (x) { x.classList.toggle("on", x === b && room); }); render(true); document.getElementById("katalog").scrollIntoView(); };
-    roomBtns.push(b); $("rooms").appendChild(b); reveal(b, i);
-  });
-  if (!(S.rooms || []).length) $("kolleksiyalar").hidden = true;
-
-  var worksList = [], worksShown = 0, WORKS_PAGE = 8;
-  function showMoreWorks() {
-    var end = Math.min(worksList.length, worksShown + WORKS_PAGE);
-    for (var i = worksShown; i < end; i++) (function (i) {
-      var d = el("div", "ph work"); d.appendChild(img(worksList[i], "Ish " + (i + 1)));
-      d.onclick = function () { lbOpen(worksList, i); };
-      $("works").appendChild(d); reveal(d, i % WORKS_PAGE);
-    })(i);
-    worksShown = end;
-    $("moreWorks").hidden = worksShown >= worksList.length;
-  }
-  function renderWorks(list) {
-    worksList = list || []; worksShown = 0; $("works").innerHTML = "";
-    if (worksList.length) {
-      $("ishlar").hidden = false; $("navWorks").hidden = false; showMoreWorks();
-    } else {
-      $("ishlar").hidden = true; $("navWorks").hidden = true; $("moreWorks").hidden = true;
-    }
-  }
-  $("moreWorks").onclick = showMoreWorks;
-  renderWorks(S.works || []);
-  fetch("works.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (list) { if (list) renderWorks(list); }).catch(function () { });
-
-  var rev = S.reviews || [];
-  $("qNav").innerHTML = "";
-  if (rev.length) {
-    $("sharhlar").hidden = false;
-    var quoteEl = document.querySelector("#sharhlar .quote");
-    reveal(quoteEl, 0);
-    var idx = 0, show = function (i) {
-      idx = i;
-      var apply = function () { $("qText").textContent = "“" + rev[i].text + "”"; $("qWho").textContent = rev[i].name + (rev[i].city ? " · " + rev[i].city : ""); [].forEach.call($("qNav").children, function (b, j) { b.classList.toggle("on", j === i); }); quoteEl.classList.remove("fade"); };
-      if (reduceMotion) { apply(); return; }
-      quoteEl.classList.add("fade"); setTimeout(apply, 380);
-    };
-    if (rev.length > 1) rev.forEach(function (_, i) { var b = el("button"); b.setAttribute("aria-label", "Sharh " + (i + 1)); b.onclick = function () { show(i); }; $("qNav").appendChild(b); });
-    show(0); if (rev.length > 1) setInterval(function () { show((idx + 1) % rev.length); }, 8000);
-  }
-
-  // --- katalog
-  function parseCsv(t) {
-    var rows = [], row = [], f = "", q = false;
-    for (var i = 0; i < t.length; i++) {
-      var c = t[i];
-      if (q) { if (c === '"') { if (t[i + 1] === '"') { f += '"'; i++; } else q = false; } else f += c; }
-      else if (c === '"') q = true;
-      else if (c === ",") { row.push(f); f = ""; }
-      else if (c === "\n") { row.push(f); rows.push(row); row = []; f = ""; }
-      else if (c !== "\r") f += c;
-    }
-    if (f || row.length) { row.push(f); rows.push(row); }
-    var head = rows.shift().map(function (h) { return h.trim().toLowerCase(); });
-    var num = function (s) { return Number((s || "0").replace(/[^\d]/g, "")); };
-    return rows.filter(function (r) { return r.join("").trim(); }).map(function (r, i) {
-      var o = {}; head.forEach(function (h, j) { o[h] = (r[j] || "").trim(); });
-      var yangi = (o.yangi || o.new || "").toLowerCase();
-      return { id: o.id || String(i + 1), name: o.nomi || o.name || "", category: o.kategoriya || o.category || "", room: o.xona || o.room || "", price: num(o.narx || o.price), oldPrice: num(o.eski_narx || o.oldprice), isNew: ["ha", "yes", "1", "true", "+"].indexOf(yangi) > -1, image: o.rasm || o.image || "" };
-    });
-  }
-  function load() {
-    var fallback = fetch("products.json").then(function (r) { return r.json(); });
-    if (!S.sheetCsvUrl) return fallback;
-    return fetch(S.sheetCsvUrl).then(function (r) { if (!r.ok) throw 0; return r.text(); }).then(parseCsv).catch(function () { return fallback; });
-  }
-  function money(n, cur) { return n.toLocaleString("ru-RU").replace(/,/g, " ") + " " + (cur || S.currency); }
-  function isSale(p) { return p.oldPrice > p.price && p.price > 0; }
-  function imgsOf(p) { return (p.images && p.images.length) ? p.images : (p.image ? [p.image] : []); }
-
-  // --- lightbox (mahsulotning barcha suratlarini ko'rish)
-  var lbImgs = [], lbIdx = 0, lbSwiped = false, lbOpenedAt = 0;
-  function lbShow(i) {
-    lbIdx = (i + lbImgs.length) % lbImgs.length;
-    $("lbImg").src = lbImgs[lbIdx];
-    $("lbCount").textContent = String(lbIdx + 1).padStart(2, "0") + " / " + String(lbImgs.length).padStart(2, "0");
-  }
-  function lbOpen(imgs, start) {
-    if (!imgs || !imgs.length) return;
-    lbImgs = imgs; lbOpenedAt = Date.now(); $("lightbox").hidden = false; document.body.style.overflow = "hidden"; lbShow(start || 0);
-  }
-  function lbClose() { $("lightbox").hidden = true; document.body.style.overflow = ""; }
-  $("lbClose").onclick = lbClose;
-  $("lightbox").onclick = function (e) { if (Date.now() - lbOpenedAt < 450) return; if (lbSwiped) { lbSwiped = false; return; } if (e.target.id === "lightbox") lbClose(); };
-  $("lbPrev").onclick = function () { lbShow(lbIdx - 1); };
-  $("lbNext").onclick = function () { lbShow(lbIdx + 1); };
-  (function () {
-    var box = $("lightbox"), im = $("lbImg"), sx = 0, dx = 0, on = false;
-    box.addEventListener("pointerdown", function (e) {
-      if (e.target.closest("button") || (e.pointerType === "mouse" && e.button !== 0)) return;
-      on = true; sx = e.clientX; dx = 0; box.setPointerCapture(e.pointerId);
-    });
-    box.addEventListener("pointermove", function (e) {
-      if (!on) return; dx = e.clientX - sx;
-      if (Math.abs(dx) > 6) { im.style.transition = "none"; im.style.transform = "translateX(" + dx + "px)"; }
-    });
-    function end() {
-      if (!on) return; on = false; im.style.transition = ""; im.style.transform = "";
-      if (Math.abs(dx) > 50) { lbSwiped = true; lbShow(lbIdx + (dx < 0 ? 1 : -1)); }
-      else if (Math.abs(dx) > 6) lbSwiped = true;
-    }
-    box.addEventListener("pointerup", end); box.addEventListener("pointercancel", end);
-  })();
-  document.addEventListener("keydown", function (e) {
-    if ($("lightbox").hidden) return;
-    if (e.key === "Escape") lbClose();
-    else if (e.key === "ArrowLeft") lbShow(lbIdx - 1);
-    else if (e.key === "ArrowRight") lbShow(lbIdx + 1);
-  });
-  // --- "Yoqdi" (saqlangan mahsulotlar) + ro'yxatdan o'tish
-  // Eslatma: localStorage preview-sandboxda har doim ham ishonchli saqlanmaydi,
-  // shuning uchun joriy tashrif davomida asosiy manba — xotiradagi o'zgaruvchilar
-  // (sessionUser/sessionLikes); localStorage faqat keyingi tashrif uchun "bonus" sifatida ishlatiladi.
-  var LS_USER = "lm_user", LS_LIKES = "lm_likes";
+  function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
   function safeGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function safeSet(k, v) { try { localStorage.setItem(k, v); } catch (e) { } }
-  var sessionUser = (function () { try { return JSON.parse(safeGet(LS_USER) || "null"); } catch (e) { return null; } })();
-  var sessionLikes = (function () { try { return JSON.parse(safeGet(LS_LIKES) || "[]"); } catch (e) { return []; } })();
-  function getUser() { return sessionUser; }
-  function getLikes() { return sessionLikes; }
-  function isLiked(id) { return sessionLikes.indexOf(id) > -1; }
-  function updateLikesCount() { var c = $("likesCount"); if (c) c.textContent = String(sessionLikes.length); }
-  function toggleLike(id) {
-    var i = sessionLikes.indexOf(id);
-    if (i > -1) sessionLikes.splice(i, 1); else sessionLikes.push(id);
-    safeSet(LS_LIKES, JSON.stringify(sessionLikes));
-    updateLikesCount();
-    return i === -1;
-  }
-  function likeClick(id, btn) {
-    var on = toggleLike(id);
-    btn.classList.toggle("on", on);
-    btn.innerHTML = on ? "♥" : "♡";
-    if (flag === "liked") render(true);
-    renderArizaLikes();
+  function toast(msg) { var t = $("toast"); t.textContent = msg; t.hidden = false; clearTimeout(toast._t); toast._t = setTimeout(function () { t.hidden = true; }, 2400); }
+
+  /* ---------- manzillar ---------- */
+  var phone = S.phone || "+998881919090", tgUser = S.telegram || "Luxmebel01", SITE_URL = "https://luxmebel.uz/";
+  function tg(text) { return "https://t.me/" + tgUser + (text ? "?text=" + encodeURIComponent(text) : ""); }
+  function money(n, cur) { return Number(n).toLocaleString("ru-RU").replace(/,/g, " ") + " " + (cur || S.currency || "y.e."); }
+  function thumb(src) { return src.replace(/^images\//, "images/t/").replace(/\.(jpe?g|png)$/i, ".webp"); }
+  function imgEl(src, alt, opts) {
+    opts = opts || {};
+    var i = new Image(); i.alt = alt || ""; i.decoding = "async";
+    if (!opts.eager) i.loading = "lazy";
+    i.onerror = function () { if (!i.dataset.fb) { i.dataset.fb = 1; i.src = src; } };
+    i.src = opts.full ? src : thumb(src);
+    return i;
   }
 
-  // --- Ariza qoldirish (pastki forma) ---
-  var ARIZA_URL = "https://tasks.jarvisaiassistants.com/lux-ariza";
-  function renderArizaLikes() {
-    var box = $("arizaLikesList");
-    if (!box) return;
-    box.innerHTML = "";
-    var likedProducts = sessionLikes.map(function (id) { return all.filter(function (p) { return p.id === id; })[0]; }).filter(Boolean);
-    if (!likedProducts.length) { box.innerHTML = '<div class="t" style="color:var(--muted)">Hali hech narsa yoqtirilmagan</div>'; return; }
-    likedProducts.forEach(function (p) { box.appendChild(el("div", "ariza-item t", p.name)); });
+  /* ---------- sozlamalar ---------- */
+  $("hdrPhone").href = "tel:" + phone; $("hdrPhoneTxt").textContent = S.phoneShow || phone;
+  $("hdrPhone").setAttribute("aria-label", "Qo'ng'iroq qilish: " + (S.phoneShow || phone));
+  $("ftPhone").href = "tel:" + phone; $("ftPhone").textContent = S.phoneShow || phone; $("ftCall").href = "tel:" + phone;
+  $("barPhone").href = "tel:" + phone;
+  ["heroTg", "ftTg", "barTg"].forEach(function (id) { $(id).href = tg("Salom! Lux mebel saytidan yozyapman."); });
+  $("hours").textContent = (S.address ? S.address + " · " : "") + (S.hours || "");
+  if (S.since) $("since").textContent = S.since;
+  if (S.mapUrl) { $("mapLink").href = S.mapUrl; $("mapLink").hidden = false; }
+  $("year").textContent = new Date().getFullYear();
+
+  /* ---------- sarlavha va pastki panel ---------- */
+  var top = $("top"), bar = $("bar"), heroEl = document.querySelector(".hero");
+  function onScroll() {
+    top.classList.toggle("stuck", scrollY > 8);
+    var past = heroEl ? heroEl.getBoundingClientRect().bottom < 0 : scrollY > 500;
+    bar.classList.toggle("on", past);
   }
-  if ($("arizaSubmit")) {
-    $("arizaSubmit").onclick = function () {
-      var name = $("arizaName").value.trim(), phone = $("arizaPhone").value.trim();
-      var msg = $("arizaMsg");
-      if (!name || !phone) { msg.hidden = false; msg.textContent = "Ism va raqamni to'liq kiriting"; msg.style.color = "var(--red)"; return; }
-      var likedProducts = sessionLikes.map(function (id) { return all.filter(function (p) { return p.id === id; })[0]; }).filter(Boolean);
-      var payload = { name: name, phone: phone, likes: likedProducts.map(function (p) { return { id: p.id, name: p.name }; }) };
-      $("arizaSubmit").disabled = true;
-      fetch(ARIZA_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
-        .then(function (r) { if (!r.ok) throw 0; return r.json(); })
-        .then(function () {
-          msg.hidden = false; msg.style.color = "var(--gold)"; msg.textContent = "Qabul qilindi! Tez orada bog'lanamiz.";
-          $("arizaName").value = ""; $("arizaPhone").value = "";
-        })
-        .catch(function () { msg.hidden = false; msg.style.color = "var(--red)"; msg.textContent = "Xatolik yuz berdi, qayta urinib ko'ring yoki Telegram/qo'ng'iroq orqali bog'laning."; })
-        .finally(function () { $("arizaSubmit").disabled = false; });
+  addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+  /* ---------- hero slayder ---------- */
+  (function () {
+    var list = (S.heroImages || []).slice(0, 5), box = $("slides"), dots = $("slideDots"), cur = 0, timer;
+    if (list.length < 2) { dots.hidden = true; return; }
+    var imgs = [box.querySelector("img")];
+    imgs[0].dataset.src = list[0];
+    for (var i = 1; i < list.length; i++) {
+      var im = new Image(); im.alt = "Lux mebel mebellari"; im.decoding = "async"; im.loading = "lazy"; im.src = list[i]; im.width = 1280; im.height = 1280; box.appendChild(im); imgs.push(im);
+    }
+    list.forEach(function (_, k) { var b = el("button"); b.type = "button"; b.setAttribute("aria-label", (k + 1) + "-rasm"); b.onclick = function () { go(k); restart(); }; dots.appendChild(b); });
+    function go(k) { cur = k; imgs.forEach(function (m, j) { m.classList.toggle("on", j === k); }); [].forEach.call(dots.children, function (d, j) { d.classList.toggle("on", j === k); }); }
+    function restart() { clearInterval(timer); if (!reduce) timer = setInterval(function () { go((cur + 1) % imgs.length); }, 5200); }
+    go(0); restart();
+    box.addEventListener("pointerenter", function () { clearInterval(timer); });
+    box.addEventListener("pointerleave", restart);
+  })();
+
+  /* ---------- mahsulotlarni tozalash ---------- */
+  function cleanName(raw) {
+    var s = String(raw || "");
+    var m = s.match(/Model\s*:\s*([^\n\r]+?)(?:\s{2,}|\s*(?:Матрас|Цена|Narx)|$)/i);
+    if (m) s = m[1];
+    s = s.replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}\u{FE0F} ]/gu, " ").replace(/\s+/g, " ").trim();
+    s = s.replace(/^Kamod\b/i, "Komod");
+    if (s.length > 48) s = s.slice(0, 48).replace(/\s\S*$/, "") + "…";
+    return s ? s.charAt(0).toUpperCase() + s.slice(1) : "Mebel";
+  }
+  var ROOM_CAT = { "Yotoqxona": "Spalnya", "Oshxona": "Oshxona garnituri", "Bolalar xonasi": "Bolalar to'plami", "Mehmonxona": "Mehmonxona mebeli" };
+  function normalize(o, i) {
+    var cat = String(o.category || "").trim();
+    if (/[а-яё]/i.test(cat)) cat = ROOM_CAT[o.room] || "Mebel";
+    return {
+      id: String(o.id || i + 1), name: cleanName(o.name), category: cat, room: String(o.room || "").trim(),
+      price: Number(o.price) || 0, oldPrice: Number(o.oldPrice) || 0, isNew: !!o.isNew, currency: o.currency || "",
+      images: (o.images && o.images.length ? o.images : []).slice(), desc: o.desc ? String(o.desc) : "", idx: i
     };
   }
+  var ALL = [], BYID = {};
 
-  function filtered() {
-    var q = query.toLowerCase();
-    return all.filter(function (p) {
-      if (flag === "liked" && !isLiked(p.id)) return false;
-      if (cat && p.category !== cat) return false;
-      if (room && p.room !== room) return false;
-      if (flag === "new" && !p.isNew) return false;
-      if (flag === "sale" && !isSale(p)) return false;
-      return !q || (p.name + " " + p.category + " " + p.room).toLowerCase().indexOf(q) > -1;
-    });
+  /* ---------- saqlanganlar ---------- */
+  var likes = [];
+  try { likes = JSON.parse(safeGet("lux_likes") || "[]"); } catch (e) { likes = []; }
+  if (!Array.isArray(likes)) likes = [];
+  function isLiked(id) { return likes.indexOf(id) > -1; }
+  function saveLikes() { safeSet("lux_likes", JSON.stringify(likes)); var c = $("likesCount"); c.textContent = likes.length; c.hidden = !likes.length; }
+  function toggleLike(id) {
+    var k = likes.indexOf(id); if (k > -1) likes.splice(k, 1); else likes.push(id);
+    saveLikes();
+    [].forEach.call(document.querySelectorAll('.heart[data-id="' + id + '"]'), function (h) { h.setAttribute("aria-pressed", isLiked(id)); });
+    if ($("mLike").dataset.id === id) $("mLike").textContent = isLiked(id) ? "Saqlangan ✓" : "Saqlash";
+    if (!$("drawer").hidden) renderDrawer();
+    if ($("onlyLiked").getAttribute("aria-pressed") === "true") render(true);
+    toast(isLiked(id) ? "Saqlandi" : "Olib tashlandi");
   }
-  // --- kartochkada rasmlarni aylantirish (barmoq bilan surish / strelka / klaviatura)
-  function multiPic(pic, imgs, name) {
-    var track = el("div", "track"), dots = el("div", "dots"), cnt = el("span", "badge count t"), ims = [], idx = 0;
-    pic.classList.add("multi"); pic.tabIndex = 0; pic.setAttribute("aria-label", name + " — rasmlar");
-    imgs.forEach(function (s, i) {
-      var im = i === 0 ? img(s, name) : el("img", "cover");
-      if (i > 0) { im.alt = name; im.decoding = "async"; im.setAttribute("data-src", s); }
-      im.draggable = false; ims.push(im); track.appendChild(im);
-      if (imgs.length <= 8) dots.appendChild(el("i"));
+  var HEART = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.3 3 5 6.2 5c1.9 0 3.4 1 4.3 2.4h3C14.4 6 15.9 5 17.8 5 21 5 23.1 8.3 21.6 11.8 19.5 16.4 12 21 12 21z" stroke-linejoin="round"/></svg>';
+  var PHONE_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>';
+  function msgFor(p) { return "Salom! Shu mahsulot qiziqtirdi: " + p.name + (p.price ? " (" + money(p.price, p.currency) + ")" : "") + "\n" + SITE_URL + "#m=" + p.id; }
+
+  /* ---------- kartochka ---------- */
+  function priceNode(p, cls) {
+    var d = el("div", cls || "pr");
+    if (p.price) { d.appendChild(document.createTextNode(money(p.price, p.currency))); if (p.oldPrice > p.price) d.appendChild(el("span", "old", money(p.oldPrice, p.currency))); }
+    else d.appendChild(el("span", "ask", "Narxini so'rang"));
+    return d;
+  }
+  function card(p, eager, opts_desc) {
+    var c = el("article", "card"), pic = el("div", "pic");
+    var rail = el("div", "rail");
+    var imgs = p.images.length ? p.images : [];
+    imgs.forEach(function (src, k) {
+      var im = imgEl(src, p.name + (imgs.length > 1 ? " — " + (k + 1) + "-rasm" : ""), { eager: eager && k === 0 });
+      im.onclick = function () { openModal(p.id); };
+      rail.appendChild(im);
     });
-    var prev = el("button", "arrow l", "←"), next = el("button", "arrow r", "→");
-    prev.type = next.type = "button"; prev.setAttribute("aria-label", "Oldingi rasm"); next.setAttribute("aria-label", "Keyingi rasm");
-    pic.appendChild(track); pic.appendChild(dots); pic.appendChild(cnt); pic.appendChild(prev); pic.appendChild(next);
-    function ensure(i) { var im = ims[i]; if (im && !im.getAttribute("src") && im.getAttribute("data-src")) im.src = im.getAttribute("data-src"); }
-    function go(i) {
-      idx = Math.max(0, Math.min(imgs.length - 1, i)); ensure(idx); ensure(idx + 1);
-      track.style.transform = "translateX(-" + idx * 100 + "%)";
-      cnt.textContent = (idx + 1) + " / " + imgs.length;
-      [].forEach.call(dots.children, function (d, j) { d.classList.toggle("on", j === idx); });
-      prev.disabled = idx === 0; next.disabled = idx === imgs.length - 1;
+    pic.appendChild(rail);
+    if (p.oldPrice > p.price && p.price > 0) pic.appendChild(el("span", "badge sale", "−" + Math.round((1 - p.price / p.oldPrice) * 100) + "%"));
+    else if (p.isNew) pic.appendChild(el("span", "badge", "Yangi"));
+    var h = el("button", "heart"); h.type = "button"; h.dataset.id = p.id; h.innerHTML = HEART;
+    h.setAttribute("aria-label", "Saqlash: " + p.name); h.setAttribute("aria-pressed", isLiked(p.id));
+    h.onclick = function () { toggleLike(p.id); }; pic.appendChild(h);
+    if (imgs.length > 1) {
+      var cn = el("span", "cnt2", "1/" + imgs.length); pic.appendChild(cn);
+      var raf; rail.addEventListener("scroll", function () { cancelAnimationFrame(raf); raf = requestAnimationFrame(function () { cn.textContent = (Math.round(rail.scrollLeft / rail.clientWidth) + 1) + "/" + imgs.length; }); }, { passive: true });
     }
-    prev.onclick = function (e) { e.stopPropagation(); go(idx - 1); };
-    next.onclick = function (e) { e.stopPropagation(); go(idx + 1); };
-    pic.addEventListener("pointerenter", function () { ensure(1); });
-    pic.addEventListener("keydown", function (e) {
-      if (e.key === "ArrowRight") go(idx + 1); else if (e.key === "ArrowLeft") go(idx - 1); else if (e.key === "Enter") lbOpen(imgs, idx);
-    });
-    var sx = 0, dx = 0, down = false, moved = false;
-    pic.addEventListener("pointerdown", function (e) {
-      if (e.target.closest(".arrow, .like-btn") || (e.pointerType === "mouse" && e.button !== 0)) return;
-      down = true; moved = false; sx = e.clientX; dx = 0; ensure(idx + 1); pic.setPointerCapture(e.pointerId);
-    });
-    pic.addEventListener("pointermove", function (e) {
-      if (!down) return; dx = e.clientX - sx;
-      if (Math.abs(dx) > 6) { moved = true; pic.classList.add("drag"); }
-      if (moved) {
-        var edge = (idx === 0 && dx > 0) || (idx === imgs.length - 1 && dx < 0);
-        track.style.transform = "translateX(calc(-" + idx * 100 + "% + " + (edge ? dx * 0.35 : dx) + "px))";
-      }
-    });
-    pic.addEventListener("pointerup", function () {
-      if (!down) return; down = false; pic.classList.remove("drag");
-      if (moved) { go(Math.abs(dx) > pic.clientWidth * 0.18 ? idx + (dx < 0 ? 1 : -1) : idx); } else lbOpen(imgs, idx);
-    });
-    pic.addEventListener("pointercancel", function () { down = false; pic.classList.remove("drag"); go(idx); });
-    go(0);
+    c.appendChild(pic);
+    var b = el("div", "body");
+    b.appendChild(el("div", "cat-l", p.category));
+    var nm = el("button", "nm", p.name); nm.type = "button"; nm.onclick = function () { openModal(p.id); }; b.appendChild(nm);
+    b.appendChild(priceNode(p));
+    if (p.desc && opts_desc) b.appendChild(el("p", "desc", p.desc));
+    var a = el("div", "acts");
+    var t = el("a", "btn btn-pri"); t.innerHTML = '<span class="long">Telegramda so\'rash</span><span class="short">So\'rash</span>'; t.href = tg(msgFor(p)); t.target = "_blank"; t.rel = "noopener";
+    var tel = el("a", "btn btn-out tel"); tel.href = "tel:" + phone; tel.innerHTML = PHONE_SVG; tel.setAttribute("aria-label", "Qo'ng'iroq qilish");
+    a.appendChild(t); a.appendChild(tel); b.appendChild(a); c.appendChild(b);
+    return c;
   }
-  function card(p) {
-    var a = el("article", "card"), pic = el("div", "pic ph"), imgs = imgsOf(p);
-    if (imgs.length > 1) multiPic(pic, imgs, p.name);
-    else if (imgs.length) {
-      pic.appendChild(img(imgs[0], p.name));
-      pic.style.cursor = "pointer";
-      pic.onclick = function () { lbOpen(imgs, 0); };
+
+  /* ---------- filtr va katalog ---------- */
+  var F = { room: "", cat: "", q: "", sort: "", liked: false }, PAGE = S.pageSize || 24, shown = PAGE, CUR = [];
+  function matches(p, skipCat) {
+    if (F.room && p.room !== F.room) return false;
+    if (!skipCat && F.cat && p.category !== F.cat) return false;
+    if (F.liked && !isLiked(p.id)) return false;
+    if (F.q) { var s = (p.name + " " + p.category + " " + p.room).toLowerCase(); if (s.indexOf(F.q) < 0) return false; }
+    return true;
+  }
+  function buildTabs() {
+    var box = $("roomTabs"); box.innerHTML = "";
+    var rooms = []; ALL.forEach(function (p) { if (p.room && rooms.indexOf(p.room) < 0) rooms.push(p.room); });
+    rooms.sort(function (a, b) { return ALL.filter(function (p) { return p.room === b; }).length - ALL.filter(function (p) { return p.room === a; }).length; });
+    function mk(label, val, n) {
+      var b = el("button", "tab" + (F.room === val ? " on" : ""), label); b.type = "button"; b.setAttribute("role", "tab"); b.setAttribute("aria-selected", F.room === val);
+      b.appendChild(el("small", "", String(n))); b.onclick = function () { setRoom(val); }; box.appendChild(b);
     }
-    if (isSale(p)) pic.appendChild(el("span", "badge sale t", "−" + Math.round((1 - p.price / p.oldPrice) * 100) + "%"));
-    else if (p.isNew) pic.appendChild(el("span", "badge new t", "Yangi"));
-    var liked = isLiked(p.id), likeBtn = el("button", "like-btn" + (liked ? " on" : ""), liked ? "♥" : "♡");
-    likeBtn.type = "button"; likeBtn.setAttribute("aria-label", "Yoqdi");
-    likeBtn.onclick = function (e) { e.stopPropagation(); likeClick(p.id, likeBtn); };
-    pic.appendChild(likeBtn);
-    a.appendChild(pic);
-    var b = el("div"); b.appendChild(el("div", "cat t")).textContent = p.category;
-    b.appendChild(el("div", "name k")).textContent = p.name;
-    var pr = el("div", "price"); pr.appendChild(document.createTextNode(p.price ? money(p.price, p.currency) : "Narxi so'rang"));
-    if (isSale(p)) pr.appendChild(el("span", "old")).textContent = money(p.oldPrice, p.currency);
-    b.appendChild(pr); a.appendChild(b);
-    var act = el("div", "act t", '<a>Qo\'ng\'iroq</a><a>Telegram</a>'), l = act.children;
-    l[0].href = "tel:" + S.phone;
-    l[1].href = tg("Salom! Shu mahsulot qiziqtirdi: " + p.name + (p.price ? " (" + money(p.price, p.currency) + ")" : ""));
-    a.appendChild(act); return a;
+    mk("Hammasi", "", ALL.length); rooms.forEach(function (r) { mk(r, r, ALL.filter(function (p) { return p.room === r; }).length); });
   }
+  function buildCats() {
+    var sel = $("cat"), cats = {}; ALL.forEach(function (p) { if (matches(p, true) && p.category) cats[p.category] = (cats[p.category] || 0) + 1; });
+    sel.innerHTML = ""; var o = el("option", "", "Barcha turlar"); o.value = ""; sel.appendChild(o);
+    Object.keys(cats).sort().forEach(function (k) { var x = el("option", "", k + " (" + cats[k] + ")"); x.value = k; sel.appendChild(x); });
+    if (F.cat && !cats[F.cat]) F.cat = ""; sel.value = F.cat;
+  }
+  function setRoom(r) { F.room = r; F.cat = ""; shown = PAGE; buildTabs(); buildCats(); render(true); }
+  function sorted(list) {
+    var l = list.slice();
+    if (F.sort === "asc") l.sort(function (a, b) { return (a.price || 9e9) - (b.price || 9e9); });
+    else if (F.sort === "desc") l.sort(function (a, b) { return b.price - a.price; });
+    else if (F.sort === "new") l.sort(function (a, b) { return (b.isNew - a.isNew) || (b.idx - a.idx); });
+    return l;
+  }
+  var revObs = ("IntersectionObserver" in window) ? new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); revObs.unobserve(e.target); } }); }, { rootMargin: "0px 0px -6% 0px" }) : null;
+  function reveal(n) { if (reduce || !revObs) return; n.classList.add("rv"); revObs.observe(n); }
   function render(reset) {
-    var list = filtered(), g = $("grid");
-    if (reset) { g.innerHTML = ""; shown = 0; }
-    list.slice(shown, shown + S.pageSize).forEach(function (p, i) { var c = card(p); g.appendChild(c); reveal(c, i % 8); });
-    shown = Math.min(list.length, shown + S.pageSize);
-    if (!list.length) g.innerHTML = '<div class="empty">Hech narsa topilmadi</div>';
-    $("more").hidden = shown >= list.length;
+    CUR = sorted(ALL.filter(function (p) { return matches(p); }));
+    var grid = $("grid"); if (reset) { grid.innerHTML = ""; shown = Math.max(shown, PAGE); }
+    var from = reset ? 0 : grid.children.length, to = Math.min(CUR.length, shown);
+    for (var i = from; i < to; i++) { var c = card(CUR[i], i < 4); grid.appendChild(c); }
+    $("more").hidden = to >= CUR.length; $("empty").hidden = CUR.length > 0;
+    $("total").textContent = CUR.length + " ta mahsulot";
   }
-  function chips() {
-    var box = $("chips"), cats = [], btns = [];
-    box.innerHTML = "";
-    all.forEach(function (p) { if (p.category && cats.indexOf(p.category) < 0) cats.push(p.category); });
-    var defs = [["Hammasi", "", ""], ["Yangi", "new", "new"], ["Chegirma", "sale", "sale"], ["♥ Saqlanganlar", "liked", "new"]].map(function (d) { return { label: d[0], flag: d[1], cls: d[2] }; })
-      .concat(cats.map(function (c) { return { label: c, cat: c }; }));
-    defs.forEach(function (d, i) {
-      if (d.flag === "new" && !all.some(function (p) { return p.isNew; })) return;
-      if (d.flag === "sale" && !all.some(isSale)) return;
-      var b = el("button", "chip " + (d.cls || "") + (i === 0 ? " on" : "")); b.type = "button"; b.textContent = d.label;
-      b.onclick = function () { cat = d.cat || ""; flag = d.flag || ""; btns.forEach(function (x) { x.classList.toggle("on", x === b); }); render(true); };
-      btns.push(b); box.appendChild(b);
+  $("more").onclick = function () { shown += PAGE; render(false); };
+  $("q").oninput = function () { F.q = this.value.trim().toLowerCase(); shown = PAGE; clearTimeout(render._t); render._t = setTimeout(function () { render(true); }, 160); };
+  $("cat").onchange = function () { F.cat = this.value; shown = PAGE; render(true); };
+  $("sort").onchange = function () { F.sort = this.value; shown = PAGE; render(true); };
+  $("onlyLiked").onclick = function () { F.liked = !F.liked; this.setAttribute("aria-pressed", F.liked); shown = PAGE; render(true); };
+
+  /* ---------- xonalar, yangilar ---------- */
+  function buildRooms() {
+    var box = $("rooms"); box.innerHTML = "";
+    (S.rooms || []).forEach(function (r) {
+      var n = ALL.filter(function (p) { return p.room === r.name; }).length; if (!n) return;
+      var a = el("button", "room"); a.type = "button"; a.setAttribute("aria-label", r.name + ": " + n + " ta model");
+      a.appendChild(imgEl(r.image, "")); var t = el("div", "tx"); t.appendChild(el("b", "", r.name)); t.appendChild(el("span", "", n + " ta model")); a.appendChild(t);
+      a.onclick = function () { setRoom(r.name); $("katalog").scrollIntoView({ behavior: reduce ? "auto" : "smooth" }); };
+      box.appendChild(a); reveal(a);
     });
   }
-  [].forEach.call(document.querySelectorAll(".sec .head"), function (h) { reveal(h, 0); });
-
-  function renderFeatured() {
-    if (!all.length) return;
-    var fresh = all.filter(function (p) { return p.isNew; });
-    var p = fresh.length ? fresh[0] : all[0];
-    $("tanlangan").hidden = false;
-    $("featName").textContent = p.name;
-    $("featCat").textContent = p.category + (p.room ? " · " + p.room : "");
-    $("featPrice").textContent = p.price ? money(p.price, p.currency) : "Narxi so'rang";
-    $("featTel").href = "tel:" + S.phone;
-    $("featTg").href = tg("Salom! Shu mahsulot qiziqtirdi: " + p.name + (p.price ? " (" + money(p.price, p.currency) + ")" : ""));
-    var pic = $("featPic"); pic.innerHTML = "";
-    var fimgs = imgsOf(p);
-    if (fimgs.length) { pic.appendChild(img(fimgs[0], p.name)); pic.style.cursor = "pointer"; pic.onclick = function () { lbOpen(fimgs, 0); }; }
-    reveal(document.querySelector("#tanlangan .feat-copy"), 0);
-    reveal(pic, 1);
+  function buildNew() {
+    var fresh = ALL.filter(function (p) { return p.isNew; }).sort(function (a, b) { return b.idx - a.idx; }).slice(0, 4);
+    if (!fresh.length) return;
+    var g = $("newGrid"); g.innerHTML = ""; g.className = "newgrid" + (fresh.length === 1 ? " one" : "");
+    fresh.forEach(function (p) { g.appendChild(card(p, false, true)); }); $("yangi").hidden = false;
   }
 
-  updateLikesCount();
-  $("q").oninput = function (e) { query = e.target.value; render(true); };
-  $("more").onclick = function () { render(false); };
-  load().then(function (d) { all = d; chips(); render(true); renderFeatured(); renderArizaLikes(); }).catch(function () { $("grid").innerHTML = '<div class="empty">Katalogni yuklab bo\'lmadi</div>'; });
+  /* ---------- modal ---------- */
+  var modalP = null, mi = 0, lastFocus = null;
+  function lockBody(on) { document.documentElement.style.overflow = on ? "hidden" : ""; }
+  function showM(k) {
+    var p = modalP; if (!p || !p.images.length) return; mi = (k + p.images.length) % p.images.length;
+    var im = $("mImg"); im.src = p.images[mi]; im.alt = p.name + " — " + (mi + 1) + "-rasm";
+    $("mCount").textContent = (mi + 1) + " / " + p.images.length; $("mCount").hidden = p.images.length < 2;
+    [].forEach.call($("mThumbs").children, function (b, j) { b.classList.toggle("on", j === mi); });
+    $("mPrev").hidden = $("mNext").hidden = p.images.length < 2;
+  }
+  function openModal(id, keepHash) {
+    var p = BYID[id]; if (!p) return; modalP = p; lastFocus = document.activeElement;
+    $("mCat").textContent = p.category; $("mName").textContent = p.name;
+    var pr = $("mPrice"); pr.innerHTML = ""; if (p.price) { pr.appendChild(document.createTextNode(money(p.price, p.currency))); if (p.oldPrice > p.price) pr.appendChild(el("span", "old", money(p.oldPrice, p.currency))); } else pr.textContent = "Narxini so'rang";
+    $("mDesc").textContent = p.desc; $("mDesc").hidden = !p.desc;
+    $("mTg").href = tg(msgFor(p)); $("mTg").target = "_blank"; $("mTg").rel = "noopener"; $("mTel").href = "tel:" + phone;
+    $("mLike").dataset.id = p.id; $("mLike").textContent = isLiked(p.id) ? "Saqlangan ✓" : "Saqlash";
+    var th = $("mThumbs"); th.innerHTML = ""; th.hidden = p.images.length < 2;
+    p.images.forEach(function (src, k) { var b = el("button"); b.type = "button"; b.setAttribute("aria-label", (k + 1) + "-rasm"); b.appendChild(imgEl(src, "")); b.onclick = function () { showM(k); }; th.appendChild(b); });
+    showM(0); $("modal").hidden = false; lockBody(true);
+    if (!keepHash) { try { history.replaceState(null, "", "#m=" + p.id); } catch (e) { } }
+    document.title = p.name + " — Lux mebel";
+    $("modal").querySelector(".m-close").focus();
+  }
+  function closeModal() {
+    if ($("modal").hidden) return; $("modal").hidden = true; lockBody(false); modalP = null;
+    try { history.replaceState(null, "", location.pathname + location.search); } catch (e) { }
+    document.title = "Lux mebel — Toshkentda spalnya, mehmonxona va oshxona mebellari";
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  $("mPrev").onclick = function () { showM(mi - 1); }; $("mNext").onclick = function () { showM(mi + 1); };
+  $("mImg").onclick = function () { if (modalP) openViewer(modalP.images, mi, true); };
+  $("mLike").onclick = function () { if (modalP) toggleLike(modalP.id); };
+  $("mShare").onclick = function () {
+    if (!modalP) return; var url = SITE_URL + "#m=" + modalP.id;
+    if (navigator.share) navigator.share({ title: modalP.name + " — Lux mebel", url: url }).catch(function () { });
+    else if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { toast("Havola nusxalandi"); }, function () { toast(url); });
+    else toast(url);
+  };
+  [].forEach.call($("modal").querySelectorAll("[data-close]"), function (b) { b.onclick = closeModal; });
+
+  /* ---------- rasm ko'rgich (kattalashtirish) ---------- */
+  var vList = [], vi = 0, vFull = false;
+  function showV() { var im = $("vImg"); im.src = vList[vi]; $("vCount").textContent = vList.length > 1 ? (vi + 1) + " / " + vList.length : ""; $("vPrev").hidden = $("vNext").hidden = vList.length < 2; }
+  function openViewer(list, i, full) { vList = list; vi = i; vFull = !!full; $("viewer").hidden = false; lockBody(true); showV(); $("viewer").querySelector(".v-close").focus(); }
+  function closeViewer() { if ($("viewer").hidden) return; $("viewer").hidden = true; if ($("modal").hidden) lockBody(false); }
+  $("vPrev").onclick = function (e) { e.stopPropagation(); vi = (vi - 1 + vList.length) % vList.length; showV(); };
+  $("vNext").onclick = function (e) { e.stopPropagation(); vi = (vi + 1) % vList.length; showV(); };
+  $("viewer").onclick = function (e) { if (e.target === this || e.target.hasAttribute("data-vclose")) closeViewer(); };
+  var tx0 = null;
+  $("viewer").addEventListener("touchstart", function (e) { tx0 = e.touches[0].clientX; }, { passive: true });
+  $("viewer").addEventListener("touchend", function (e) { if (tx0 == null) return; var dx = e.changedTouches[0].clientX - tx0; tx0 = null; if (Math.abs(dx) > 50 && vList.length > 1) { vi = (vi + (dx < 0 ? 1 : -1) + vList.length) % vList.length; showV(); } });
+
+  /* ---------- saqlanganlar paneli ---------- */
+  function renderDrawer() {
+    var box = $("drList"); box.innerHTML = ""; var items = likes.map(function (id) { return BYID[id]; }).filter(Boolean);
+    if (!items.length) { box.appendChild(el("p", "drawer-empty", "Hali hech narsa saqlanmagan. Mahsulotdagi yurak belgisini bosing.")); $("drSend").hidden = true; $("drClear").hidden = true; return; }
+    $("drSend").hidden = false; $("drClear").hidden = false;
+    items.forEach(function (p) {
+      var r = el("div", "li"); r.appendChild(imgEl(p.images[0] || "", p.name));
+      var m = el("div"); var b = el("b", "", p.name); m.appendChild(b); m.appendChild(el("small", "", p.price ? money(p.price, p.currency) : "Narxini so'rang")); r.appendChild(m);
+      var x = el("button", "", "✕"); x.type = "button"; x.setAttribute("aria-label", "Olib tashlash: " + p.name); x.onclick = function () { toggleLike(p.id); }; r.appendChild(x);
+      box.appendChild(r);
+    });
+    var txt = "Salom! Menga shu mahsulotlar yoqdi:\n" + items.map(function (p) { return "• " + p.name + (p.price ? " (" + money(p.price, p.currency) + ")" : ""); }).join("\n") + "\n" + SITE_URL;
+    $("drSend").href = tg(txt); $("drSend").target = "_blank"; $("drSend").rel = "noopener";
+  }
+  function openDrawer() { lastFocus = document.activeElement; renderDrawer(); $("drawer").hidden = false; lockBody(true); $("drawer").querySelector(".ico-btn").focus(); }
+  function closeDrawer() { if ($("drawer").hidden) return; $("drawer").hidden = true; lockBody(false); if (lastFocus && lastFocus.focus) lastFocus.focus(); }
+  $("likesBtn").onclick = openDrawer;
+  [].forEach.call($("drawer").querySelectorAll("[data-close]"), function (b) { b.onclick = closeDrawer; });
+  $("drClear").onclick = function () { likes = []; saveLikes(); renderDrawer(); [].forEach.call(document.querySelectorAll(".heart"), function (h) { h.setAttribute("aria-pressed", "false"); }); if (F.liked) render(true); };
+
+  /* ---------- ishlar galereyasi ---------- */
+  var worksList = [], wShown = 0, WP = 8;
+  function moreWorks() {
+    var end = Math.min(worksList.length, wShown + WP);
+    for (var i = wShown; i < end; i++) (function (i) {
+      var b = el("button", "w"); b.type = "button"; b.setAttribute("aria-label", "Ish " + (i + 1) + " rasmini kattalashtirish");
+      b.appendChild(imgEl(worksList[i], "Lux mebel ishi " + (i + 1))); b.onclick = function () { openViewer(worksList, i, true); }; $("works").appendChild(b); reveal(b);
+    })(i);
+    wShown = end; $("moreWorks").hidden = wShown >= worksList.length;
+  }
+  function setWorks(list) { worksList = list || []; wShown = 0; $("works").innerHTML = ""; $("ishlar").hidden = !worksList.length; $("navWorks").hidden = !worksList.length; if (worksList.length) moreWorks(); }
+  $("moreWorks").onclick = moreWorks;
+  setWorks(S.works || []);
+  fetch("works.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (l) { if (l && l.length) setWorks(l); }).catch(function () { });
+
+  /* ---------- sharhlar ---------- */
+  (function () {
+    var rv = S.reviews || []; if (!rv.length) return; var box = $("reviews");
+    rv.forEach(function (r) { var d = el("div", "rev"); d.appendChild(el("p", "", "«" + (r.text || r.matn || "") + "»")); d.appendChild(el("span", "", r.name || r.ism || "")); box.appendChild(d); });
+    $("sharhlar").hidden = false;
+  })();
+
+  /* ---------- ma'lumotni yuklash ---------- */
+  function applyHash() { var m = /^#m=([^&]+)/.exec(location.hash || ""); if (m && BYID[decodeURIComponent(m[1])]) openModal(decodeURIComponent(m[1]), true); }
+  fetch("products.json?v=" + Math.floor(Date.now() / 600000)).then(function (r) { return r.json(); }).then(function (list) {
+    ALL = (Array.isArray(list) ? list : (list.products || [])).map(normalize).filter(function (p) { return p.images.length; });
+    ALL.forEach(function (p) { BYID[p.id] = p; });
+    buildTabs(); buildCats(); buildRooms(); buildNew(); render(true); saveLikes(); applyHash();
+    try {
+      var ld = document.createElement("script"); ld.type = "application/ld+json";
+      ld.textContent = JSON.stringify({ "@context": "https://schema.org", "@type": "ItemList", name: "Lux mebel katalogi", itemListElement: ALL.slice(0, 40).map(function (p, i) { return { "@type": "ListItem", position: i + 1, name: p.name + " (" + p.category + ")", url: SITE_URL + "#m=" + p.id, image: SITE_URL + p.images[0] }; }) });
+      document.head.appendChild(ld);
+    } catch (e) { }
+  }).catch(function () { $("empty").hidden = false; $("empty").textContent = "Katalogni yuklab bo'lmadi. Sahifani yangilang yoki bizga qo'ng'iroq qiling."; });
+  addEventListener("hashchange", applyHash);
+
+  /* ---------- klaviatura ---------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") { if (!$("viewer").hidden) closeViewer(); else if (!$("modal").hidden) closeModal(); else closeDrawer(); return; }
+    if (!$("viewer").hidden) { if (e.key === "ArrowLeft") $("vPrev").onclick(e); if (e.key === "ArrowRight") $("vNext").onclick(e); return; }
+    if (!$("modal").hidden) { if (e.key === "ArrowLeft") showM(mi - 1); if (e.key === "ArrowRight") showM(mi + 1);
+      if (e.key === "Tab") { var f = $("modal").querySelectorAll("a[href],button:not([hidden])"); f = [].filter.call(f, function (n) { return n.offsetParent !== null; }); if (!f.length) return; var a = f[0], z = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === a) { z.focus(); e.preventDefault(); } else if (!e.shiftKey && document.activeElement === z) { a.focus(); e.preventDefault(); } } }
+  });
 })();

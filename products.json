@@ -26,7 +26,7 @@
  },
  {
   "id": "3",
-  "name": "Kamod 210.sm orex",
+  "name": "Komod 210.sm orex",
   "category": "Komod",
   "room": "Yotoqxona",
   "price": 390,
@@ -39,7 +39,7 @@
  },
  {
   "id": "4",
-  "name": "Kamod 210 80-80",
+  "name": "Komod 210 80-80",
   "category": "Komod",
   "room": "Yotoqxona",
   "price": 400,
@@ -51,7 +51,7 @@
  },
  {
   "id": "5",
-  "name": "Kamod 210 80-69",
+  "name": "Komod 210 80-69",
   "category": "Komod",
   "room": "Yotoqxona",
   "price": 400,
@@ -132,7 +132,7 @@
  },
  {
   "id": "11",
-  "name": "sp.1111",
+  "name": "Sp.1111",
   "category": "Spalnya",
   "room": "Yotoqxona",
   "price": 1070,
@@ -159,7 +159,7 @@
  },
  {
   "id": "13",
-  "name": "sp.001",
+  "name": "Sp.001",
   "category": "Spalnya",
   "room": "Yotoqxona",
   "price": 1040,
@@ -268,7 +268,7 @@
  },
  {
   "id": "22",
-  "name": "Karavat Sadaf",
+  "name": "Karavat Sadaf",
   "category": "Krovat",
   "room": "Yotoqxona",
   "price": 450,
@@ -328,7 +328,7 @@
  },
  {
   "id": "26",
-  "name": "Karavat 44.45",
+  "name": "Karavat 44.45",
   "category": "Krovat",
   "room": "Yotoqxona",
   "price": 420,
@@ -343,7 +343,7 @@
  },
  {
   "id": "27",
-  "name": "Karavat 44.45",
+  "name": "Karavat 44.45",
   "category": "Krovat",
   "room": "Yotoqxona",
   "price": 250,
@@ -420,7 +420,7 @@
  },
  {
   "id": "33",
-  "name": "Kamod Sadaf",
+  "name": "Komod Sadaf",
   "category": "Komod",
   "room": "Yotoqxona",
   "price": 0,
@@ -850,7 +850,7 @@
  },
  {
   "id": "64",
-  "name": "Karavat 44.45 k.",
+  "name": "Karavat 44.45 k.",
   "category": "Krovat",
   "room": "Yotoqxona",
   "price": 410,
@@ -1446,8 +1446,8 @@
  },
  {
   "id": "109",
-  "name": "Спальный гарнитур \n🛋 Model : Visol 6\n      Матрас : 210*170\n💰 Цена : 890 у.е.\n🚚 Доставка по городу Ташкент бесплатно \n\n☎️📲 Tel: +998881919090",
-  "category": "Спальный гарнитур",
+  "name": "Visol 6",
+  "category": "Spalnya",
   "room": "Yotoqxona",
   "price": 890,
   "oldPrice": 0,
@@ -1458,6 +1458,7 @@
    "images/p251.jpg",
    "images/p252.jpg",
    "images/p253.jpg"
-  ]
+  ],
+  "desc": "Matras 210×170 sm. Toshkent bo'ylab bepul yetkazib berish."
  }
 ]

@@ -2,99 +2,204 @@
 <html lang="uz">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lux mebel</title>
-<meta name="description" content="Lux mebel — Toshkentda spalnya, mehmonxona, oshxona va bolalar xonasi mebellari. 2008 yildan buyon, bepul yetkazib berish. Buyurtma uchun qo'ng'iroq qiling yoki Telegramda yozing.">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Lux mebel — Toshkentda spalnya, mehmonxona va oshxona mebellari</title>
+<meta name="description" content="Lux mebel: Toshkentda 2008 yildan beri spalnya, mehmonxona, oshxona va bolalar xonasi mebellari. 100 dan ortiq model, Toshkent bo'ylab bepul yetkazib berish. Buyurtma uchun qo'ng'iroq qiling yoki Telegramda yozing.">
+<link rel="canonical" href="https://luxmebel.uz/">
+<meta name="theme-color" content="#f7f4ee">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lux mebel">
+<meta property="og:title" content="Lux mebel — Toshkentda sifatli mebel, 2008 yildan beri">
+<meta property="og:description" content="Spalnya, mehmonxona, oshxona va bolalar xonasi mebellari. Toshkent bo'ylab bepul yetkazib berish.">
+<meta property="og:url" content="https://luxmebel.uz/">
+<meta property="og:image" content="https://luxmebel.uz/og.jpg">
+<meta property="og:locale" content="uz_UZ">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:wght@300;400;500;600&display=swap">
+<link rel="preload" as="image" href="images/l/p103.webp" type="image/webp" fetchpriority="high">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FurnitureStore","name":"Lux mebel","url":"https://luxmebel.uz/","telephone":"+998881919090","image":"https://luxmebel.uz/og.jpg","description":"Toshkentda spalnya, mehmonxona, oshxona va bolalar xonasi mebellari. 2008 yildan beri.","foundingDate":"2008","address":{"@type":"PostalAddress","addressLocality":"Toshkent","addressCountry":"UZ"},"openingHours":"Mo-Su 09:00-20:00","sameAs":["https://t.me/Luxmebel01"]}
+</script>
 </head>
 <body>
-<header class="hero dark">
-  <div class="bg" id="heroBg" hidden></div>
-  <div class="hero-nav t" id="heroNav" hidden><button type="button" id="heroPrev" aria-label="Oldingi surat">←</button><span id="heroCount"></span><button type="button" id="heroNext" aria-label="Keyingi surat">→</button></div>
-  <div class="wrap" style="width:100%"><div class="nav">
-    <div class="l t"><a href="#kolleksiyalar">Kolleksiyalar</a><a href="#katalog">Katalog</a><a href="#ishlar" id="navWorks">Ishlarimiz</a></div>
-    <a class="brand k" href="#" id="brand"></a>
-    <div class="r t"><a href="#aloqa">Aloqa</a><a href="#katalog" id="likesNav">♥ <span id="likesCount">0</span></a><a class="btn out-gold tel" id="hdrPhone" href="#" style="min-height:42px;padding:0 20px"></a></div>
-  </div></div>
-  <div class="wrap" style="width:100%"><div class="copy">
-    <div class="since t" id="since"></div>
-    <h1 class="k"><span id="heroTitle"></span><i id="heroAccent"></i></h1>
-    <div class="cta"><a class="btn gold t" href="#katalog">Katalogni ochish</a><a class="btn out-ivory t" id="heroTg" href="#">Telegramda yozish</a></div>
-  </div></div>
+<a class="skip" href="#katalog">Katalogga o'tish</a>
+
+<header class="top" id="top">
+  <div class="wrap top-in">
+    <a class="brand" href="#" aria-label="Lux mebel, bosh sahifa">Lux <span>mebel</span></a>
+    <nav class="nav" aria-label="Asosiy menyu">
+      <a href="#katalog">Katalog</a><a href="#kolleksiyalar">Xonalar</a><a href="#ishlar" id="navWorks" hidden>Ishlarimiz</a><a href="#buyurtma">Buyurtma</a><a href="#aloqa">Aloqa</a>
+    </nav>
+    <div class="top-r">
+      <button type="button" class="ico-btn" id="likesBtn" aria-label="Saqlangan mahsulotlar"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.3 3 5 6.2 5c1.9 0 3.4 1 4.3 2.4h3C14.4 6 15.9 5 17.8 5 21 5 23.1 8.3 21.6 11.8 19.5 16.4 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span class="cnt" id="likesCount" hidden>0</span></button>
+      <a class="btn btn-pri phone-btn" id="hdrPhone" href="tel:+998881919090"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span id="hdrPhoneTxt">+998 88 191 90 90</span></a>
+    </div>
+  </div>
 </header>
 
-<main class="wrap">
-  <div class="trust" id="trust"></div>
-
-  <section class="sec featured" id="tanlangan" hidden>
-    <div class="feat-grid">
-      <div class="feat-copy">
-        <div class="no t">Tanlangan mahsulot</div>
-        <h2 class="k" id="featName"></h2>
-        <p class="feat-desc t" id="featCat"></p>
-        <div class="feat-price k" id="featPrice"></div>
-        <div class="cta"><a class="btn gold t" id="featTg" href="#">Telegramda so'rash</a><a class="btn out-ink t" id="featTel" href="#">Qo'ng'iroq</a></div>
+<main>
+<section class="hero">
+  <div class="wrap hero-in">
+    <div class="hero-copy">
+      <p class="eyebrow">Toshkentda mebel · <span id="since">2008 yildan beri</span></p>
+      <h1>Uyingizga mos <em>nafis va qulay</em> mebel</h1>
+      <p class="lead">Spalnya, mehmonxona, oshxona va bolalar xonasi mebellari. Toshkent bo'ylab bepul yetkazib beramiz.</p>
+      <div class="cta">
+        <a class="btn btn-pri btn-lg" href="#katalog">Katalogni ko'rish</a>
+        <a class="btn btn-out btn-lg" id="heroTg" href="https://t.me/Luxmebel01">Telegramda yozish</a>
       </div>
-      <div class="feat-pic ph" id="featPic"></div>
+      <ul class="hero-facts">
+        <li><b>18 yil</b> bozorda</li>
+        <li><b>100+</b> model</li>
+        <li><b>Bepul</b> yetkazish</li>
+      </ul>
     </div>
-  </section>
+    <div class="hero-pic">
+      <div class="slides" id="slides">
+        <img class="on" src="images/l/p103.webp" alt="Lux mebel: zamonaviy yotoqxona mebeli" width="1280" height="1280" fetchpriority="high" decoding="async">
+      </div>
+      <div class="dots" id="slideDots" role="tablist" aria-label="Rasmlar"></div>
+    </div>
+  </div>
+</section>
 
-  <section class="sec" id="kolleksiyalar">
-    <div class="head"><div><div class="no t">Xonalar</div><h2 class="k">Kolleksiyalar</h2></div></div>
+<section class="trust" aria-label="Afzalliklar">
+  <div class="wrap trust-in" id="trust">
+    <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.6 5.6 7 7m10 10 1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4" /><circle cx="12" cy="12" r="4"/></svg><b>2008 yildan beri</b><span>18 yillik tajriba</span></div>
+    <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 7h11v9H2zM13 10h4l3 3v3h-7z"/><circle cx="6" cy="17.5" r="1.7"/><circle cx="16.5" cy="17.5" r="1.7"/></svg><b>Bepul yetkazish</b><span>Toshkent bo'ylab</span></div>
+    <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><b>100 dan ortiq model</b><span>har bir xona uchun</span></div>
+    <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12l9-9h8v8l-9 9z"/><circle cx="16" cy="8" r="1.4"/></svg><b>Optom va chakana</b><span>qulay narxlarda</span></div>
+  </div>
+</section>
+
+<section class="sec" id="kolleksiyalar">
+  <div class="wrap">
+    <div class="sec-h"><p class="kick">Xonalar bo'yicha</p><h2>Qaysi xona uchun mebel kerak?</h2></div>
     <div class="rooms" id="rooms"></div>
-  </section>
+  </div>
+</section>
 
-  <section class="sec" id="katalog">
-    <div class="head"><div><div class="no t">Tanlov</div><h2 class="k">Katalog</h2></div><input class="search" id="q" type="search" placeholder="QIDIRISH" aria-label="Mahsulot qidirish"></div>
-    <div class="chips t" id="chips"></div>
-    <div class="grid" id="grid"></div>
-    <div class="more"><button class="btn out-ink t" id="more" hidden>Yana ko'rsatish</button></div>
-  </section>
+<section class="sec sec-new" id="yangi" hidden>
+  <div class="wrap">
+    <div class="sec-h"><p class="kick">Yangi</p><h2>Yangi kelgan mebellar</h2></div>
+    <div class="newgrid" id="newGrid"></div>
+  </div>
+</section>
 
-  <section class="sec" id="ishlar" hidden>
-    <div class="head"><div><div class="no t">Portfolio</div><h2 class="k">Bizning ishlar</h2></div></div>
-    <div class="works" id="works"></div>
-    <div class="more"><button class="btn out-ink t" id="moreWorks" hidden>Yana ko'rsatish</button></div>
-  </section>
-
-  <section class="sec" id="sharhlar" hidden>
-    <div class="quote"><div class="no t" style="margin-bottom:26px">Mijozlar</div>
-      <p class="k" id="qText"></p><div class="who t" id="qWho"></div><div class="qnav" id="qNav"></div></div>
-  </section>
-
-  <section class="sec" id="ariza">
-    <div class="head"><div><div class="no t">Bog'lanish</div><h2 class="k">Ariza qoldiring</h2></div></div>
-    <div class="ariza-box">
-      <div class="ariza-form">
-        <input type="text" id="arizaName" placeholder="Ismingiz">
-        <input type="tel" id="arizaPhone" placeholder="+998 90 123 45 67">
-        <button type="button" class="btn gold t" id="arizaSubmit" style="margin-top:16px">Yuborish</button>
-        <div class="ariza-msg t" id="arizaMsg" hidden></div>
-      </div>
-      <div class="ariza-likes">
-        <div class="t" style="margin-bottom:12px;color:var(--muted)">Yoqqan mahsulotlaringiz</div>
-        <div id="arizaLikesList"></div>
+<section class="sec" id="katalog">
+  <div class="wrap">
+    <div class="sec-h row"><div><p class="kick">Katalog</p><h2>Mebel katalogi</h2></div><p class="total" id="total" aria-live="polite"></p></div>
+  </div>
+  <div class="filters" id="filters">
+    <div class="wrap f-in">
+      <div class="tabs" id="roomTabs" role="tablist" aria-label="Xona"></div>
+      <div class="f-row">
+        <label class="search"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><input id="q" type="search" placeholder="Model yoki turini qidiring" aria-label="Mahsulot qidirish" autocomplete="off"></label>
+        <select id="cat" aria-label="Turi"><option value="">Barcha turlar</option></select>
+        <select id="sort" aria-label="Saralash"><option value="">Odatiy tartib</option><option value="new">Avval yangilari</option><option value="asc">Narx: arzondan</option><option value="desc">Narx: qimmatdan</option></select>
+        <button type="button" class="chip-btn" id="onlyLiked" aria-pressed="false">Saqlanganlar</button>
       </div>
     </div>
-  </section>
+  </div>
+  <div class="wrap">
+    <div class="grid" id="grid"></div>
+    <p class="empty" id="empty" hidden>Hech narsa topilmadi. Boshqa so'z yozing yoki filtrni tozalang.</p>
+    <div class="more"><button class="btn btn-out" id="more" hidden>Yana ko'rsatish</button></div>
+  </div>
+</section>
+
+<section class="sec" id="ishlar" hidden>
+  <div class="wrap">
+    <div class="sec-h"><p class="kick">Portfolio</p><h2>Bizning ishlar</h2></div>
+    <div class="works" id="works"></div>
+    <div class="more"><button class="btn btn-out" id="moreWorks" hidden>Yana ko'rsatish</button></div>
+  </div>
+</section>
+
+<section class="sec sec-steps" id="buyurtma">
+  <div class="wrap">
+    <div class="sec-h"><p class="kick">Buyurtma</p><h2>Buyurtma qilish juda oson</h2></div>
+    <ol class="steps">
+      <li><span class="n">1</span><h3>Mebelni tanlang</h3><p>Katalogdan yoqqan modelni toping, "saqlash" belgisi bilan belgilab qo'ying.</p></li>
+      <li><span class="n">2</span><h3>Bizga yozing yoki qo'ng'iroq qiling</h3><p>Telegramda yoki telefon orqali narx, o'lcham va rang haqida so'rang.</p></li>
+      <li><span class="n">3</span><h3>Uyingizgacha yetkazamiz</h3><p>Toshkent bo'ylab yetkazib berish bepul.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec sec-reviews" id="sharhlar" hidden>
+  <div class="wrap">
+    <div class="sec-h"><p class="kick">Mijozlar</p><h2>Mijozlarimiz fikri</h2></div>
+    <div class="reviews" id="reviews"></div>
+  </div>
+</section>
 </main>
 
-<footer class="dark" id="aloqa"><div class="wrap"><div class="grid2">
-  <div><div class="lab t">Buyurtma va maslahat</div><a class="ph1 k" id="ftPhone" href="#"></a><div class="adr" id="addr"></div></div>
-  <div class="row"><a class="btn gold t" id="ftTg" href="#">Telegramda yozish</a></div>
-</div></div></footer>
+<footer class="foot" id="aloqa">
+  <div class="wrap foot-in">
+    <div class="foot-l">
+      <p class="kick kick-l">Aloqa</p>
+      <h2>Buyurtma va maslahat</h2>
+      <a class="big-phone" id="ftPhone" href="tel:+998881919090">+998 88 191 90 90</a>
+      <p class="hours" id="hours">Toshkent · 09:00–20:00, har kuni</p>
+      <div class="cta">
+        <a class="btn btn-pri btn-lg" id="ftCall" href="tel:+998881919090">Qo'ng'iroq qilish</a>
+        <a class="btn btn-lt btn-lg" id="ftTg" href="https://t.me/Luxmebel01">Telegramda yozish</a>
+      </div>
+    </div>
+    <div class="foot-r">
+      <a class="map" id="mapLink" href="#" hidden>Xaritada ko'rish</a>
+      <p class="copy">© <span id="year">2026</span> Lux mebel · luxmebel.uz</p>
+    </div>
+  </div>
+</footer>
 
-<div class="bar t"><a id="barPhone" href="#">Qo'ng'iroq</a><a id="barTg" href="#">Telegram</a></div>
+<noscript><div class="wrap" style="padding:20px"><p>Katalogni ko'rish uchun JavaScript yoqilgan bo'lishi kerak. Telefon: <a href="tel:+998881919090">+998 88 191 90 90</a>, Telegram: <a href="https://t.me/Luxmebel01">@Luxmebel01</a>.</p></div></noscript>
 
-<div class="lightbox" id="lightbox" hidden>
-  <button type="button" class="lb-close" id="lbClose" aria-label="Yopish">✕</button>
-  <button type="button" class="lb-arrow lb-prev" id="lbPrev" aria-label="Oldingi">←</button>
-  <div class="lb-stage"><img id="lbImg" alt=""></div>
-  <button type="button" class="lb-arrow lb-next" id="lbNext" aria-label="Keyingi">→</button>
-  <div class="lb-count t" id="lbCount"></div>
+<div class="bar" id="bar"><a href="tel:+998881919090" id="barPhone">Qo'ng'iroq</a><a href="https://t.me/Luxmebel01" id="barTg">Telegram</a></div>
+
+<aside class="drawer" id="drawer" hidden aria-label="Saqlangan mahsulotlar">
+  <div class="drawer-bg" data-close></div>
+  <div class="drawer-pn" role="dialog" aria-modal="true" aria-labelledby="drTitle">
+    <div class="drawer-h"><h3 id="drTitle">Saqlanganlar</h3><button type="button" class="ico-btn" data-close aria-label="Yopish">✕</button></div>
+    <div class="drawer-b" id="drList"></div>
+    <div class="drawer-f"><a class="btn btn-pri btn-block" id="drSend" href="#">Telegramga yuborish</a><button type="button" class="btn btn-out btn-block" id="drClear">Hammasini tozalash</button></div>
+  </div>
+</aside>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-bg" data-close></div>
+  <div class="modal-pn" role="dialog" aria-modal="true" aria-labelledby="mName">
+    <button type="button" class="m-close" data-close aria-label="Yopish">✕</button>
+    <div class="m-gal">
+      <div class="m-main"><img id="mImg" alt=""><button type="button" class="m-arr m-prev" id="mPrev" aria-label="Oldingi rasm">‹</button><button type="button" class="m-arr m-next" id="mNext" aria-label="Keyingi rasm">›</button><span class="m-count" id="mCount"></span></div>
+      <div class="m-thumbs" id="mThumbs"></div>
+    </div>
+    <div class="m-info">
+      <p class="kick" id="mCat"></p>
+      <h3 id="mName"></h3>
+      <div class="m-price" id="mPrice"></div>
+      <p class="m-desc" id="mDesc"></p>
+      <ul class="m-pts"><li>Toshkent bo'ylab bepul yetkazib berish</li><li>Narx, o'lcham va rangni telefon yoki Telegramda aniqlashtiramiz</li></ul>
+      <div class="m-cta"><a class="btn btn-pri btn-lg" id="mTg" href="#">Telegramda so'rash</a><a class="btn btn-out btn-lg" id="mTel" href="#">Qo'ng'iroq qilish</a></div>
+      <div class="m-sec"><button type="button" class="link-btn" id="mLike">Saqlash</button><button type="button" class="link-btn" id="mShare">Havolani ulashish</button></div>
+    </div>
+  </div>
 </div>
+
+<div class="viewer" id="viewer" hidden>
+  <button type="button" class="v-close" data-vclose aria-label="Yopish">✕</button>
+  <button type="button" class="v-arr v-prev" id="vPrev" aria-label="Oldingi">‹</button>
+  <img id="vImg" alt="">
+  <button type="button" class="v-arr v-next" id="vNext" aria-label="Keyingi">›</button>
+  <span class="v-count" id="vCount"></span>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
 <script src="config.js"></script>
 <script src="app.js"></script>
